@@ -1,0 +1,29 @@
+{
+  "name": "blog-server",
+  "version": "1.0.0",
+  "description": "2018 - 2019 年 Web 设计实训, server 端.",
+  "main": "dist/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "ts-node test"
+  },
+  "keywords": [
+    "typescript",
+    "koa",
+    "backend",
+    "server",
+    "restful"
+  ],
+  "author": "Devin Don <DevinDon@Foxmail.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "jsdom": "^13.1.0",
+    "koa-backend-server": "^0.4.6"
+  },
+  "devDependencies": {
+    "@types/jsdom": "^12.2.1"
+  }
+}
