@@ -1,0 +1,15 @@
+{
+  "type": "mysql",
+  "host": "blog-database",
+  "port": 3306,
+  "username": "docker",
+  "password": "docker",
+  "database": "docker",
+  "synchronize": true,
+  "logging": true,
+  "entities": [
+    "./server/entity/**/*.entity.js"
+  ],
+  "migrations": [],
+  "subscribers": []
+}
