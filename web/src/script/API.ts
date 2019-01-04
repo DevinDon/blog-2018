@@ -94,7 +94,7 @@ class API {
     };
     // this.getArticles().then(v => this.offline.articles = v);
     // this.getImages().then(v => this.offline.images = v);
-    this.getMottos({ amount: 10 }).then(v => v ? this.offline.mottos = v : undefined);
+    this.getMottos({ amount: 10 }).then(v => v ? this.offline.mottos = v : console.log(v, this.offline.mottos));
     // this.getSongs().then(v => this.offline.songs = v);
   }
 
@@ -159,7 +159,7 @@ class API {
    */
   public async getMottos(options?: any): Promise<Motto[]> {
     return axios
-      .post<Resp<Motto[]>>(`${this.server}/mottos`)
+      .post<Resp<Motto[]>>(`${this.server}/mottos`, { param: options })
       .then(v => v.data.content)
       .catch(r => [
         this.getRandomMotto(),
