@@ -25,7 +25,6 @@ services:
     networks:
       - frontend
       - backend
-      - bridge
     expose:
       - "8080"
 
@@ -37,7 +36,7 @@ services:
       - blog-server
     networks:
       - frontend
-      - bridge
+    network_mode: bridge
     expose:
       - "80"
     volumes:
@@ -47,5 +46,3 @@ services:
 networks:
   frontend:
   backend:
-  bridge:
-    external: true
