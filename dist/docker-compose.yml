@@ -23,7 +23,9 @@ services:
     links:
       - blog-database
     networks:
+      - frontend
       - backend
+      - bridge
     expose:
       - "8080"
 
@@ -35,7 +37,7 @@ services:
       - blog-server
     networks:
       - frontend
-      - backend
+      - bridge
     expose:
       - "80"
     volumes:
@@ -43,7 +45,7 @@ services:
       - ./web:/app:ro
 
 networks:
-
   frontend:
-
   backend:
+  bridge:
+    external: true
