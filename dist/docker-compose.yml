@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+
+  blog-database:
+    image: mysql:5
+    container_name: blog-database
+    environment:
+      MYSQL_ROOT_PASSWORD: blog
+      MYSQL_DATABASE: blog
+      MYSQL_USER: blog
+      MYSQL_PASSWORD: blog
+    networks:
+      - backend
+    expose:
+      - "3306"
+
+  blog-server:
+    build: .
+    container_name: blog-server
+    depends_on:
+      - blog-database
+    link:
+      - blog-database
+    networks:
+      - backend
+    expose:
+      - "8080"
+
+  blog-nginx:
+    image: nginx
+    depends_on:
+      - blog-server
+    links:
+      - blog-server
+    networks:
+      - frontend
+      - backend
+    expose:
+      - "80"
+    volumes:
+      - ./nginx:/etc/nginx:ro
+      - ./web:/app:ro
+
+networks:
+
+  frontend:
+
+  backend:
