@@ -1,7 +1,7 @@
 "use strict";
 /** API 相关. */
 class API {
-    constructor(server = '/api/v1') {
+    constructor(server = '/blog/api/v1') {
         this.server = server;
         this.offline = {
             articles: [
