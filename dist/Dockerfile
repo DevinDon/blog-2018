@@ -1,8 +1,8 @@
 FROM node
 WORKDIR /app
-COPY ["ormconfig.json", "package.json", "package-lock.json", "./"]
+COPY ["ormconfig.json", "package.json", "package-lock.json", "/app/"]
 RUN npm i
-COPY ["server", "./"]
+COPY ["server", "/app/server"]
 RUN pwd && ls
-COPY ["web", "./"]
+COPY ["web", "/app/web"]
 CMD [ "npm", "start" ]
