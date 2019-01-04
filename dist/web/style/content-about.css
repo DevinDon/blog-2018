@@ -1,0 +1,7 @@
+#atricle-about {
+  text-align: center;
+}
+
+#article-about::-webkit-scrollbar {
+  width: 0;
+}
