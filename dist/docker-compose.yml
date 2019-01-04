@@ -25,6 +25,7 @@ services:
     networks:
       - frontend
       - backend
+      - hostnet
     expose:
       - "8080"
 
