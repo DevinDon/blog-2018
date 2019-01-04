@@ -20,7 +20,7 @@ services:
     container_name: blog-server
     depends_on:
       - blog-database
-    link:
+    links:
       - blog-database
     networks:
       - backend
