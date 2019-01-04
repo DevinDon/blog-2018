@@ -2,9 +2,9 @@
   "type": "mysql",
   "host": "blog-database",
   "port": 3306,
-  "username": "docker",
-  "password": "docker",
-  "database": "docker",
+  "username": "blog",
+  "password": "blog",
+  "database": "blog",
   "synchronize": true,
   "logging": true,
   "entities": [
