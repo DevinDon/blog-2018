@@ -30,6 +30,7 @@ services:
 
   blog-nginx:
     image: nginx
+    container_name: blog-nginx
     depends_on:
       - blog-server
     links:
