@@ -4,8 +4,8 @@ import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
 export class Article extends BaseEntity {
 
   @PrimaryColumn({
-    type: 'int',
-    width: 11,
+    type: 'bigint',
+    unsigned: true,
     nullable: false
   })
   id: number;
@@ -24,7 +24,7 @@ export class Article extends BaseEntity {
   })
   author: string;
 
-  @Column('int')
+  @Column('unsigned big int')
   date: number;
 
   @Column('text')

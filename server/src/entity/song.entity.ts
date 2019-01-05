@@ -4,8 +4,9 @@ import { Entity, BaseEntity, PrimaryColumn, Column } from 'typeorm';
 export class Song extends BaseEntity {
 
   @PrimaryColumn({
-    type: 'int',
-    comment: 'mid, music id.'
+    type: 'bigint',
+    unsigned: true,
+    nullable: false
   })
   id: number;
 
@@ -30,7 +31,7 @@ export class Song extends BaseEntity {
   })
   album: string;
 
-  @Column('int')
+  @Column('unsigned big int')
   time: number;
 
 }
