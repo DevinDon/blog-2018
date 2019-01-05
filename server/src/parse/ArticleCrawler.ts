@@ -1,6 +1,5 @@
 import { JSDOM } from 'jsdom';
 import { request } from 'http';
-import { InterfaceArticle } from '../type';
 import { Article } from '../entity/article.entity';
 
 interface ArticleNode {
@@ -31,11 +30,11 @@ async function getArticle(id: number) {
 async function parseArticle(articleNode: ArticleNode) {
   console.log(`开始解析第 ${articleNode.id} 篇文章.`);
   const dom = articleNode.dom;
-  const article: InterfaceArticle = {
+  const article: Partial<Article> = {
     id: articleNode.id,
     title: (dom.querySelector('.articulo-titulo') as Element).innerHTML.trim(),
     author: (dom.querySelector('.articulo-autor') as Element).innerHTML.trim().slice(3),
-    date: Date.now(),
+    date: 0,
     summary: (dom.querySelector('.comilla-cerrar') as Element).innerHTML.trim(),
     text: ((dom.querySelector('.articulo-contenido') as Element).textContent as string).trim(),
     html: (dom.querySelector('.articulo-contenido') as Element).innerHTML
@@ -44,7 +43,7 @@ async function parseArticle(articleNode: ArticleNode) {
   return article;
 }
 
-async function save(article: InterfaceArticle) {
+async function save(article: Partial<Article>) {
   if (await Article.findOne({ id: article.id })) {
     console.log(`文章 ${article.id} ${article.title} 已存在, 进行更新操作.`);
     return Article.update({ id: article.id }, article);

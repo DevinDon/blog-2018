@@ -29,7 +29,7 @@ async function parseArticle(articleNode) {
         id: articleNode.id,
         title: dom.querySelector('.articulo-titulo').innerHTML.trim(),
         author: dom.querySelector('.articulo-autor').innerHTML.trim().slice(3),
-        date: Date.now(),
+        date: 0,
         summary: dom.querySelector('.comilla-cerrar').innerHTML.trim(),
         text: dom.querySelector('.articulo-contenido').textContent.trim(),
         html: dom.querySelector('.articulo-contenido').innerHTML
