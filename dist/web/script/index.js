@@ -622,7 +622,7 @@ class Dialog {
 class Player {
     constructor(dialog) {
         this.dialog = dialog;
-        this.player = new QMPlayer();
+        this.player = new QMplayer();
         this.$player = $('<div class="card player init" data-mid="0"></div>');
         const $info = $('<div class="info"></div>');
         const $text = $('<div class="text"></div>');

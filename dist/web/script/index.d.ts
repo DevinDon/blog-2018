@@ -212,7 +212,7 @@ interface PlayerVersion {
 }
 declare type EventList = 'play' | 'pause' | 'ended' | 'timeupdate' | 'waiting' | 'error';
 declare type EventFunction = (e: any) => any;
-declare class QMPlayer {
+declare class QMplayer {
     /** 当前播放属性. */
     state: string;
     /** 获取或设置音频中的当前播放位置（单位秒），设置功能只对web播放有效. */

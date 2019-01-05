@@ -24,7 +24,7 @@ type EventList = 'play' | 'pause' | 'ended' | 'timeupdate' | 'waiting' | 'error'
 
 type EventFunction = (e: any) => any;
 
-declare class QMPlayer {
+declare class QMplayer {
 
   /** 当前播放属性. */
   public state: string;
@@ -67,7 +67,7 @@ declare class QMPlayer {
  */
 class Player {
 
-  private player: QMPlayer;
+  private player: QMplayer;
   private $player: JQuery<HTMLElement>;
   private $title: JQuery<HTMLElement>;
   private $artist: JQuery<HTMLElement>;
@@ -78,7 +78,7 @@ class Player {
   private $next: JQuery<HTMLElement>;
 
   constructor(private dialog: Dialog) {
-    this.player = new QMPlayer();
+    this.player = new QMplayer();
     this.$player = $('<div class="card player init" data-mid="0"></div>');
     const $info = $('<div class="info"></div>');
     const $text = $('<div class="text"></div>');
