@@ -4,8 +4,9 @@ import { Entity, BaseEntity, PrimaryColumn, Column } from 'typeorm';
 export class Image extends BaseEntity {
 
   @PrimaryColumn({
-    type: 'int',
-    width: 11
+    type: 'bigint',
+    unsigned: true,
+    nullable: false
   })
   id: number;
 
@@ -18,7 +19,7 @@ export class Image extends BaseEntity {
   @Column('text')
   text: string;
 
-  @Column('bigint')
+  @Column('unsigned big int')
   date: number;
 
 }

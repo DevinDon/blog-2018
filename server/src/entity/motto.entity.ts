@@ -3,7 +3,10 @@ import { Entity, BaseEntity, PrimaryGeneratedColumn, Column } from 'typeorm';
 @Entity()
 export class Motto extends BaseEntity {
 
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({
+    type: 'bigint',
+    unsigned: true
+  })
   id: number;
 
   @Column({
