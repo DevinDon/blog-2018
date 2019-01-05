@@ -116,6 +116,7 @@ interface Page {
 }
 /** 应用核心, 用于页面控制. */
 declare class APP {
+    private prefix;
     /** API 服务. */
     private api;
     /** 对话框管理. */
@@ -130,9 +131,9 @@ declare class APP {
     private currectPage;
     /**
      * 生成一个单页应用管理器.
-     * @param page 初始页面, 默认为首页.
+     * @param prefix 应用前缀, 默认为空.
      */
-    constructor();
+    constructor(prefix?: string);
     /** 滚动. */
     static scrollTo(end?: XYZ, position?: XYZ): void;
     /** 定时器任务. */

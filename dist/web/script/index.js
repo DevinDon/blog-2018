@@ -1,7 +1,7 @@
 "use strict";
 /** API 相关. */
 class API {
-    constructor(server = '/blog/api/v1') {
+    constructor(server = '/v1') {
         this.server = server;
         this.offline = {
             articles: [
@@ -115,12 +115,13 @@ class API {
 class APP {
     /**
      * 生成一个单页应用管理器.
-     * @param page 初始页面, 默认为首页.
+     * @param prefix 应用前缀, 默认为空.
      */
-    constructor() {
+    constructor(prefix = '') {
+        this.prefix = prefix;
         /** 当前页面. */
         this.currectPage = 'blog';
-        this.api = new API();
+        this.api = new API(`/${prefix}/v1`);
         this.dialog = new Dialog();
         this.starrysky = new StarrySky('background');
         this.content = {
@@ -222,11 +223,11 @@ class APP {
     }
     /** 监听本地路由. */
     listeningLocalRoute() {
-        const url = location.pathname.slice(1);
+        const url = location.pathname.split('/').filter(v => v).filter(v => v !== this.prefix);
         // 当前页面刷新, 或从站外链接进入, 重新导航至本页
-        if (url) {
-            const page = url.split('/').filter(v => v)[0];
-            const param = url.split('/').filter(v => v).slice(1);
+        if (url.length) {
+            const page = url[0];
+            const param = url.slice(1);
             this.active(page, param);
         }
         else {
