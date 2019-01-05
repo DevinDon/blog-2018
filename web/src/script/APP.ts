@@ -196,7 +196,7 @@ class APP {
     // 首先回到顶部
     APP.scrollTo({ x: 0, y: 0, z: 0 });
     /** 当前页面. */
-    page = location.pathname.split('/').filter(v => v)[0] as Title;
+    page = page || this.currectPage;
     /** 设置当前页面 ID. */
     const id = `#content-${page}`;
     /** 获取 content. */
