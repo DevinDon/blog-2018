@@ -132,13 +132,18 @@ class API {
 class APP {
     /**
      * 生成一个单页应用管理器.
-     * @param prefix 应用前缀, 默认为空.
      */
-    constructor(prefix = '') {
-        this.prefix = prefix;
+    constructor() {
         /** 当前页面. */
         this.currectPage = 'blog';
-        this.api = new API('api/v1');
+        if (location.hostname !== 'localhost') {
+            this.prefix = 'blog';
+            this.api = new API('api/v1');
+        }
+        else {
+            this.prefix = '';
+            this.api = new API();
+        }
         this.dialog = new Dialog();
         this.starrysky = new StarrySky('background');
         this.player = new Player(this.dialog);
@@ -315,7 +320,6 @@ class APP {
             case 'song':
                 resource = await this.api.getSongs();
                 $cards = await this.generateSongCards(resource);
-                this.setPlayer(resource[0]);
                 break;
             default:
                 resource = [];
@@ -339,15 +343,6 @@ class APP {
             duration: 500,
             easing: 'easeInOutSine'
         });
-    }
-    async setPlayer(song) {
-        const $player = $('#content-song>.player');
-        if (song) {
-            $player.find('.text>.title').text(song.title);
-            $player.find('.text>.artist').text(song.artist);
-            $player.find('.text>.album').text(song.album);
-            $player.attr('data-mid', song.id);
-        }
     }
     /**
      * 生成文章卡片.
@@ -632,7 +627,7 @@ class Player {
         this.$albumimage = $(`<img class="album" src="./assets/image/cd.png" alt="CD 封面">`);
         const $controller = $('<div class="controller">');
         this.$previous = $(`<button class="previous""></button>`);
-        this.$toggle = $(`<button class="toggle pause""></button>`);
+        this.$toggle = $(`<button class="toggle pause""></button>`).click(e => this.toggle());
         this.$next = $(`<button class="next""></button>`);
         $('#content-song').append(this.$player.append($info.append($text.append(this.$title, this.$artist, this.$albumname), this.$albumimage), $controller.append(this.$previous, this.$toggle, this.$next)));
         this.init();
@@ -672,7 +667,7 @@ class Player {
             this.$albumname.text(song.album);
         }
         else {
-            this.player.toggle(true);
+            this.player.toggle();
         }
     }
 }

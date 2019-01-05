@@ -48,7 +48,7 @@ __decorate([
     typeorm_1.Column({
         type: 'bigint',
         unsigned: true,
-        nullable: false
+        nullable: true
     }),
     __metadata("design:type", Number)
 ], Song.prototype, "time", void 0);

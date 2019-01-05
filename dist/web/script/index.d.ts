@@ -114,7 +114,6 @@ interface Page {
 }
 /** 应用核心, 用于页面控制. */
 declare class APP {
-    private prefix;
     /** API 服务. */
     private api;
     /** 对话框管理. */
@@ -129,11 +128,11 @@ declare class APP {
     private page;
     /** 当前页面. */
     private currectPage;
+    private prefix;
     /**
      * 生成一个单页应用管理器.
-     * @param prefix 应用前缀, 默认为空.
      */
-    constructor(prefix?: string);
+    constructor();
     /** 滚动. */
     static scrollTo(end?: XYZ, position?: XYZ): void;
     /** 定时器任务. */
@@ -146,7 +145,6 @@ declare class APP {
     private listeningLocalRoute;
     /** 设置当前页面内容. */
     setCards(page?: Title): Promise<void>;
-    setPlayer(song: Song): Promise<void>;
     /**
      * 生成文章卡片.
      * @param articles 文章内容.
