@@ -15,7 +15,7 @@ services:
     expose:
       - "3306"
     volumes:
-      - "./config/mysql:/etc/mysql"
+      - ./config/mysql:/etc/mysql:ro
 
   blog-server:
     build: .
@@ -29,6 +29,8 @@ services:
       - backend
     expose:
       - "8080"
+    volumes:
+      - ./web:/app/web:ro
 
   blog-nginx:
     image: nginx
