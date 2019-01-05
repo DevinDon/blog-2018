@@ -118,7 +118,7 @@
   let player;
 
   window.onload = () => {
-    app = new APP();
+    app = new APP('blog');
     player = new QMplayer();
     player.on('play', e => {
       Song.toggle();
