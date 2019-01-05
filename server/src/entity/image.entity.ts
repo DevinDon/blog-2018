@@ -22,7 +22,7 @@ export class Image extends BaseEntity {
   @Column({
     type: 'bigint',
     unsigned: true,
-    nullable: false
+    nullable: true
   })
   date: number;
 

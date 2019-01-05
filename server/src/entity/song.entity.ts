@@ -34,7 +34,7 @@ export class Song extends BaseEntity {
   @Column({
     type: 'bigint',
     unsigned: true,
-    nullable: false
+    nullable: true
   })
   time: number;
 
