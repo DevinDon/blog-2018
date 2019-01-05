@@ -431,7 +431,7 @@ class APP {
     // 重置标题
     document.title = `窗台 - ${currect.name}`;
     // 切换地址栏
-    history.pushState({ time: Date.now(), page, param }, document.title, `${this.prefix}/${page}${param.length ? '/' + param.join('/') : ''}`);
+    history.pushState({ time: Date.now(), page, param }, document.title, `${this.prefix ? '/' + this.prefix : ''}/${page}${param.length ? '/' + param.join('/') : ''}`);
     // 首次加载数据
     if (
       (page === 'article' || page === 'image' || page === 'song') && !$(`#content-${page}`).hasClass('init')
