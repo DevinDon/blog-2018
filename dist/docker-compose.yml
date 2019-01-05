@@ -15,7 +15,7 @@ services:
     expose:
       - "3306"
     volumes:
-      - "./config/mysql:/app"
+      - "./config/mysql:/etc/mysql"
 
   blog-server:
     build: .
