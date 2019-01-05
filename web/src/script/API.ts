@@ -47,8 +47,6 @@ interface Song {
   id: number;
   title: string;
   artist: string;
-  link: string;
-  song: any;
   album: string;
   time: number;
 }
@@ -81,7 +79,13 @@ class API {
           date: Date.now()
         }
       ], images: [
-
+        {
+          id: 14,
+          link: 'http://image.wufazhuce.com/Fp7L1MIqpBJyGRjbvFulSmjnmPB8',
+          text: '是狼是人，日久见心。by 小饭',
+          image: 'iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAADoElEQVR4Xu2dS27DMAxEnUvl/utcqkW3BuqBQDLiiK/bSPzMPNO/tH1d/IxW4DW6e5q/AGA4BAAAAMMVGN4+EwAAhiswvH0mAAAMV2B4+0wAABiuwPD2mQDTAXi/3z/DNRjd/gsARvt/AcBs/wFguP8AAABcBI5mgGuA0fZfnAKG+68B+Hw+PCwypkTd5stTAAAYu39dFwB4+xeuHgDCEnoHKAdAJbifQqrXe9uVX73SO3wNoBIAQL6pKxGVPwCwoqbhWgAwNC2zZADIVNMwFgAYmpZZMgBkqmkYCwAMTcssuRyAzGKJla8AAORrahURAKzsyi8WAPI1tYoYBsCqW4pdVkA+Cl6OyAYrBQDAyq78YgEgX1OriABgZVd+sQCQr6lVRACwsiu/WADI19QqIt/5t7Irv1gAyNfUKiIAWNmVXywA5GtqFREArOzKLxYA8jW1iggAVnblFwsA+ZpaRQQAK7vWi5VfCFkPyQ4nBQDAya2CWgGgQFSnkBIAtUD9iRi1v1qsbvWpeqr1uMdX/si3gaohlaC64W71qXqq9QCAmwLfBhQAvoy4EhwAnv8dAKeAZGAVkMnpZDh1AACAlHBtAQCs6RVerQRXR0C4gFsAVU92PhVP9c8EUAoufg4AyUeEIrib4Iu8lC9X+pVPgKhBqoFo/HIHNidQ+gHAZoOq0wNAtcLN4wNAc4OqywOAaoWbxweA5gZVlwcA1Qo3jz8eACVAc/9keeo2WPV//G2gEkAq3HwBAIj/agYAm18HK0LVAaYMVPHVfpW/++fR/jkFdHdY1AcAnAIef7lHTUAmABPg+SIhOmLUfqW/IljFV/tV/u6fR/s/fgJ0N7C6PnUAAEC1A5vjA8BmA3anB4DdDmzODwCbDdidHgB2O7A5PwBsNmB3egDY7cDm/NsBqO4/+iCkur7q+NH+y58DdBegur7q+ADAy6DeL4O6HwHV9VXHZwIwAZgAT0eZugquPkKr4zMBmABMACbA/wqoCRi+DaweccSPKQAAMf3sdwOAvYWxBgAgpp/9bgCwtzDWAADE9LPfDQD2FsYaAICYfva7AcDewlgDABDTz343ANhbGGsAAGL62e8OA2CvAA08KiBfBqHf2QoAwNn+yu4AQEp09gIAONtf2R0ASInOXgAAZ/sruwMAKdHZCx6/UXp263T3pwAADOcAAABguALD22cCAMBwBYa3zwQAgOEKDG+fCQAAwxUY3j4TAACGKzC8/V84dG0OroozDAAAAABJRU5ErkJggg==',
+          date: 1350230400000
+        }
       ], mottos: [
         {
           id: 1,
@@ -89,7 +93,13 @@ class API {
           text: '大道虽简, 知易行难.'
         }
       ], songs: [
-
+        {
+          id: 140265,
+          time: 258,
+          title: '祝我生日快乐 Panasonic广告原曲',
+          artist: '温岚',
+          album: '温式效应'
+        }
       ]
     };
     // this.getArticles().then(v => this.offline.articles = v);

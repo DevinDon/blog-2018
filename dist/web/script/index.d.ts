@@ -43,8 +43,6 @@ interface Song {
     id: number;
     title: string;
     artist: string;
-    link: string;
-    song: any;
     album: string;
     time: number;
 }
