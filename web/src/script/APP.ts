@@ -50,7 +50,7 @@ class APP {
    * @param prefix 应用前缀, 默认为空.
    */
   constructor(private prefix: string = '') {
-    this.api = new API();
+    this.api = new API('api/v1');
     this.dialog = new Dialog();
     this.starrysky = new StarrySky('background');
     this.content = {
