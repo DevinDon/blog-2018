@@ -6,6 +6,7 @@ import articles from './articles';
 import images from './images';
 import mottos from './mottos';
 import songs from './songs';
+import signin from './sign/in';
 
 /** POST: Cow say hello. */
 const index: Middleware = async (c, next) => {
@@ -61,6 +62,10 @@ export const POSTPATHS: RouterPaths = {
   }, 'songs': {
     path: '/songs',
     ware: songs,
+    cors: allowAllCORS
+  }, 'sign in': {
+    path: '/sign/in',
+    ware: signin,
     cors: allowAllCORS
   }
 };

@@ -8,6 +8,7 @@ const articles_1 = __importDefault(require("./articles"));
 const images_1 = __importDefault(require("./images"));
 const mottos_1 = __importDefault(require("./mottos"));
 const songs_1 = __importDefault(require("./songs"));
+const in_1 = __importDefault(require("./sign/in"));
 const index = async (c, next) => {
     c.body = {
         id: Date.now(),
@@ -59,6 +60,10 @@ exports.POSTPATHS = {
     }, 'songs': {
         path: '/songs',
         ware: songs_1.default,
+        cors: config_1.allowAllCORS
+    }, 'sign in': {
+        path: '/sign/in',
+        ware: in_1.default,
         cors: config_1.allowAllCORS
     }
 };
