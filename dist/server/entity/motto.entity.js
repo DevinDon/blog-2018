@@ -13,7 +13,10 @@ const typeorm_1 = require("typeorm");
 let Motto = class Motto extends typeorm_1.BaseEntity {
 };
 __decorate([
-    typeorm_1.PrimaryGeneratedColumn(),
+    typeorm_1.PrimaryGeneratedColumn({
+        type: 'bigint',
+        unsigned: true
+    }),
     __metadata("design:type", Number)
 ], Motto.prototype, "id", void 0);
 __decorate([

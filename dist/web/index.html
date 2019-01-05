@@ -68,15 +68,15 @@
   </section>
 
   <section id="content-song" class="content">
-    <div class="card player init" data-mid="0">
+    <!-- <div class="card player init" data-mid="0">
       <div class="info">
         <div class="text">
           <h2 class="title">歌曲</h2>
           <h3 class="artist">歌手</h3>
           <p class="album">专辑</p>
-          <!-- <article class="lyrics">
+          <article class="lyrics">
             <p>暂无歌词.</p>
-          </article> -->
+          </article>
         </div>
         <img class="album" src="./assets/image/cd.png" alt="CD 封面">
       </div>
@@ -85,7 +85,7 @@
         <button class="toggle pause" onclick="Song.play()"></button>
         <button class="next" onclick="player.playNext()"></button>
       </div>
-    </div>
+    </div> -->
     <div class="loading init">
       <h2>正在加载歌曲列表, 请稍后...</h2>
     </div>
@@ -119,27 +119,6 @@
 
   window.onload = () => {
     app = new APP('blog');
-    player = new QMplayer();
-    player.on('play', e => {
-      Song.toggle();
-      // console.log('play');
-    });
-    player.on('pause', e => {
-      Song.toggle();
-      // console.log('pause');
-    });
-    player.on('ended', e => {
-      Song.toggle();
-      // console.log('ended');
-    });
-    player.on('waiting', e => {
-      Song.toggle();
-      // console.log('waiting');
-    });
-    player.on('error', e => {
-      Song.toggle();
-      // console.log('error');
-    });
   }
 
   const Home = {
@@ -169,43 +148,6 @@
           easing: 'easeInOutCirc',
           complete: () => $art.addClass('show').removeClass('busy')
         });
-      }
-    }
-  };
-
-  const Song = {
-    $player: $('#content-song>.player'),
-    controller: {
-      toggle: $('#content-song>.player>.controller>.toggle')
-    },
-    albumAnimation: anime({
-      targets: $('#content-song .info img').get(0),
-      rotate: 360,
-      duration: 12 * 1000,
-      easing: [0, 0, 0, 0],
-      autoplay: false,
-      loop: true
-    }),
-    toggle: () => {
-      if (player.state === 'playing') {
-        Song.albumAnimation.play();
-        Song.controller.toggle.removeClass('pause');
-        Song.controller.toggle.addClass('play');
-      } else {
-        Song.albumAnimation.pause();
-        Song.controller.toggle.removeClass('play');
-        Song.controller.toggle.addClass('pause');
-      }
-    },
-    play: id => {
-      if (id) {
-        player.play(id);
-        Song.$player.attr('data-mid', id);
-      } else if (player.data.song) {
-        player.toggle();
-        Song.toggle();
-      } else {
-        player.play(Song.$player.attr('data-mid'));
       }
     }
   };

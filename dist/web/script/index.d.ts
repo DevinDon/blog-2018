@@ -121,6 +121,8 @@ declare class APP {
     dialog: Dialog;
     /** 星空背景. */
     starrysky: StarrySky;
+    /** 播放器. */
+    player: Player;
     /** 页面内容. */
     private content;
     /** 页面标题. */
@@ -188,6 +190,72 @@ declare class Dialog {
      * @param id dialog ID.
      */
     remove(id: string): HTMLElement | undefined;
+}
+interface Params {
+    target?: string;
+    filter?: boolean;
+    loop?: boolean;
+    report?: string;
+}
+interface SongData {
+    state: string;
+    song: any;
+    currentTime: number;
+    duration: number;
+    songs: any[];
+    index: number;
+    params: any;
+}
+interface PlayerVersion {
+    build: string;
+    version: string;
+}
+declare type EventList = 'play' | 'pause' | 'ended' | 'timeupdate' | 'waiting' | 'error';
+declare type EventFunction = (e: any) => any;
+declare class QMPlayer {
+    /** 当前播放属性. */
+    state: string;
+    /** 获取或设置音频中的当前播放位置（单位秒），设置功能只对web播放有效. */
+    currentTime: number;
+    /** 获取资源时长（单位秒），未加载到时返回 NaN. */
+    duration: number;
+    /** 获取当前播放歌曲信息. */
+    data: SongData;
+    /** 获取或设置循环播放开关. */
+    loop: boolean;
+    /** 获取或设置播放方式. */
+    target: number;
+    /** 获取或设置WEB播放听歌流水上报标识. */
+    report: string;
+    /** 获取组件版本号. */
+    version: PlayerVersion;
+    constructor(params?: Params);
+    play(songs: string | number | (string | number)[]): any;
+    pause(): any;
+    toggle(play?: boolean): any;
+    playPrev(): any;
+    playNext(): any;
+    on(event: EventList, listener: (e: any) => any): any;
+    off(event: EventList, listener: (e: any) => any): any;
+}
+/**
+ * 基于 QMPlayer 内核的网页播放器.
+ * 暂时没有考虑复用问题, 如果内联样式和资源的话, 看起来就很像 Angular 的 Component 了.
+ */
+declare class Player {
+    private dialog;
+    private player;
+    private $player;
+    private $title;
+    private $artist;
+    private $albumname;
+    private $albumimage;
+    private $previous;
+    private $toggle;
+    private $next;
+    constructor(dialog: Dialog);
+    private init;
+    toggle(song?: Song): void;
 }
 /** 立体坐标, Z 轴保留. */
 interface XYZ {

@@ -14,8 +14,9 @@ let Song = class Song extends typeorm_1.BaseEntity {
 };
 __decorate([
     typeorm_1.PrimaryColumn({
-        type: 'int',
-        comment: 'mid, music id.'
+        type: 'bigint',
+        unsigned: true,
+        nullable: false
     }),
     __metadata("design:type", Number)
 ], Song.prototype, "id", void 0);
@@ -44,7 +45,7 @@ __decorate([
     __metadata("design:type", String)
 ], Song.prototype, "album", void 0);
 __decorate([
-    typeorm_1.Column('int'),
+    typeorm_1.Column('unsigned big int'),
     __metadata("design:type", Number)
 ], Song.prototype, "time", void 0);
 Song = __decorate([
