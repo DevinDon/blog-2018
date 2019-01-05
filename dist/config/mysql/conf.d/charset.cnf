@@ -1,2 +1,14 @@
 [mysqld]
 character_set_server = utf8
+
+[mysql]
+character_set_server = utf8
+
+[mysql.server]
+character_set_server = utf8
+
+[mysqld_safe]
+character_set_server = utf8
+
+[client]
+character_set_server = utf8
