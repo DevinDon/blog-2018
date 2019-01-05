@@ -19,7 +19,11 @@ export class Image extends BaseEntity {
   @Column('text')
   text: string;
 
-  @Column('unsigned big int')
+  @Column({
+    type: 'bigint',
+    unsigned: true,
+    nullable: false
+  })
   date: number;
 
 }

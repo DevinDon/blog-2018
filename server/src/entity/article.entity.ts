@@ -24,7 +24,11 @@ export class Article extends BaseEntity {
   })
   author: string;
 
-  @Column('unsigned big int')
+  @Column({
+    type: 'bigint',
+    unsigned: true,
+    nullable: false
+  })
   date: number;
 
   @Column('text')

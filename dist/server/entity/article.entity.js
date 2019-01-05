@@ -37,7 +37,11 @@ __decorate([
     __metadata("design:type", String)
 ], Article.prototype, "author", void 0);
 __decorate([
-    typeorm_1.Column('unsigned big int'),
+    typeorm_1.Column({
+        type: 'bigint',
+        unsigned: true,
+        nullable: false
+    }),
     __metadata("design:type", Number)
 ], Article.prototype, "date", void 0);
 __decorate([

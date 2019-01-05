@@ -31,7 +31,11 @@ export class Song extends BaseEntity {
   })
   album: string;
 
-  @Column('unsigned big int')
+  @Column({
+    type: 'bigint',
+    unsigned: true,
+    nullable: false
+  })
   time: number;
 
 }

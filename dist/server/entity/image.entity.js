@@ -33,7 +33,11 @@ __decorate([
     __metadata("design:type", String)
 ], Image.prototype, "text", void 0);
 __decorate([
-    typeorm_1.Column('unsigned big int'),
+    typeorm_1.Column({
+        type: 'bigint',
+        unsigned: true,
+        nullable: false
+    }),
     __metadata("design:type", Number)
 ], Image.prototype, "date", void 0);
 Image = __decorate([
