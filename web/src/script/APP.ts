@@ -50,7 +50,7 @@ class APP {
    * @param prefix 应用前缀, 默认为空.
    */
   constructor(private prefix: string = '') {
-    this.api = new API(`/${prefix}/v1`);
+    this.api = new API();
     this.dialog = new Dialog();
     this.starrysky = new StarrySky('background');
     this.content = {
@@ -161,14 +161,17 @@ class APP {
   /** 监听本地路由. */
   private listeningLocalRoute() {
     const url: string[] = location.pathname.split('/').filter(v => v).filter(v => v !== this.prefix);
+    console.log(url);
     // 当前页面刷新, 或从站外链接进入, 重新导航至本页
     if (url.length) {
       const page: Title = url[0] as Title;
       const param: string[] = url.slice(1);
       this.active(page, param);
+      console.log(page, param);
     } else {
       // 否则导航至首页
       this.active('home');
+      console.log(`home`);
     }
     // 为所有的本地路由链接添加监听事件
     document
