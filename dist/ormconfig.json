@@ -5,8 +5,8 @@
   "username": "blog",
   "password": "blog",
   "database": "blog",
-  "synchronize": true,
-  "logging": true,
+  "synchronize": false,
+  "logging": false,
   "entities": [
     "./server/entity/**/*.entity.js"
   ],
