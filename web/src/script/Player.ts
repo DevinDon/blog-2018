@@ -88,7 +88,7 @@ class Player {
     this.$albumimage = $(`<img class="album" src="./assets/image/cd.png" alt="CD 封面">`);
     const $controller = $('<div class="controller">');
     this.$previous = $(`<button class="previous""></button>`);
-    this.$toggle = $(`<button class="toggle pause""></button>`);
+    this.$toggle = $(`<button class="toggle pause""></button>`).click(e => this.toggle());
     this.$next = $(`<button class="next""></button>`);
     $('#content-song').append(
       this.$player.append(
@@ -150,7 +150,7 @@ class Player {
       this.$artist.text(song.artist);
       this.$albumname.text(song.album);
     } else {
-      this.player.toggle(true);
+      this.player.toggle();
     }
   }
 

@@ -47,12 +47,19 @@ class APP {
   /** 当前页面. */
   private currectPage: Title = 'blog';
 
+  private prefix: '' | 'blog';
+
   /**
    * 生成一个单页应用管理器.
-   * @param prefix 应用前缀, 默认为空.
    */
-  constructor(private prefix: string = '') {
-    this.api = new API('api/v1');
+  constructor() {
+    if (location.hostname !== 'localhost') {
+      this.prefix = 'blog';
+      this.api = new API('api/v1');
+    } else {
+      this.prefix = '';
+      this.api = new API();
+    }
     this.dialog = new Dialog();
     this.starrysky = new StarrySky('background');
     this.player = new Player(this.dialog);
@@ -236,7 +243,6 @@ class APP {
       case 'song':
         resource = await this.api.getSongs();
         $cards = await this.generateSongCards(resource);
-        this.setPlayer(resource[0]);
         break;
       default:
         resource = [];
@@ -260,16 +266,6 @@ class APP {
       duration: 500,
       easing: 'easeInOutSine'
     });
-  }
-
-  public async setPlayer(song: Song) {
-    const $player = $('#content-song>.player');
-    if (song) {
-      $player.find('.text>.title').text(song.title);
-      $player.find('.text>.artist').text(song.artist);
-      $player.find('.text>.album').text(song.album);
-      $player.attr('data-mid', song.id);
-    }
   }
 
   /**
