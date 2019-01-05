@@ -41,6 +41,7 @@ services:
       - blog-server
     networks:
       - frontend
+      - backend
       - hostnet
     expose:
       - "80"
