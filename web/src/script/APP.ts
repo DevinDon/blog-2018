@@ -37,6 +37,8 @@ class APP {
   public dialog: Dialog;
   /** 星空背景. */
   public starrysky: StarrySky;
+  /** 播放器. */
+  public player: Player;
 
   /** 页面内容. */
   private content: Content;
@@ -53,6 +55,7 @@ class APP {
     this.api = new API('api/v1');
     this.dialog = new Dialog();
     this.starrysky = new StarrySky('background');
+    this.player = new Player(this.dialog);
     this.content = {
       home: {
         name: '首页',
@@ -394,9 +397,12 @@ class APP {
           <td class="artist">${song.artist}</td>
           <td class="album">${song.album}</td>
           <td class="time">${song.time}</td>
-          <td class="control" onclick="Song.play(${song.id})">播放</td>
+          <td class="control">播放</td>
         </tr>
       `);
+      $tr.children('.control').click(e => {
+        this.player.toggle(song);
+      });
       $tbody.append($tr);
     }
     $table.append(
