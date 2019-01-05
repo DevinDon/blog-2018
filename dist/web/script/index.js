@@ -38,10 +38,7 @@ class API {
                 }
             ]
         };
-        // this.getArticles().then(v => this.offline.articles = v);
-        // this.getImages().then(v => this.offline.images = v);
         this.getMottos({ amount: 10 }).then(v => v.length ? this.offline.mottos = v : console.log(v, this.offline.mottos));
-        // this.getSongs().then(v => this.offline.songs = v);
     }
     /** 获取一篇随即文章. */
     getRandomArticle() {
@@ -67,7 +64,8 @@ class API {
         return axios
             .post(`${this.server}/articles`, { params: options })
             .then(v => v.data.content)
-            .catch(r => [
+            .catch(r => [])
+            .then(v => v.length ? v : [
             this.getRandomArticle(),
             this.getRandomArticle(),
             this.getRandomArticle(),
@@ -84,7 +82,8 @@ class API {
         return axios
             .post(`${this.server}/images`, { params: options })
             .then(v => v.data.content)
-            .catch(r => [
+            .catch(r => [])
+            .then(v => v.length ? v : [
             this.getRandomImage(),
             this.getRandomImage(),
             this.getRandomImage(),
@@ -100,7 +99,8 @@ class API {
         return axios
             .post(`${this.server}/mottos`, { param: options })
             .then(v => v.data.content)
-            .catch(r => [
+            .catch(r => [])
+            .then(v => v.length ? v : [
             this.getRandomMotto(),
             this.getRandomMotto(),
             this.getRandomMotto(),
@@ -117,7 +117,8 @@ class API {
         return axios
             .post(`${this.server}/songs`, { params: options })
             .then(v => v.data.content)
-            .catch(r => [
+            .catch(r => [])
+            .then(v => v.length ? v : [
             this.getRandomSong(),
             this.getRandomSong(),
             this.getRandomSong(),
