@@ -68,24 +68,6 @@
   </section>
 
   <section id="content-song" class="content">
-    <!-- <div class="card player init" data-mid="0">
-      <div class="info">
-        <div class="text">
-          <h2 class="title">歌曲</h2>
-          <h3 class="artist">歌手</h3>
-          <p class="album">专辑</p>
-          <article class="lyrics">
-            <p>暂无歌词.</p>
-          </article>
-        </div>
-        <img class="album" src="./assets/image/cd.png" alt="CD 封面">
-      </div>
-      <div class="controller">
-        <button class="previous" onclick="player.playPrev()"></button>
-        <button class="toggle pause" onclick="Song.play()"></button>
-        <button class="next" onclick="player.playNext()"></button>
-      </div>
-    </div> -->
     <div class="loading init">
       <h2>正在加载歌曲列表, 请稍后...</h2>
     </div>
@@ -118,7 +100,7 @@
   let player;
 
   window.onload = () => {
-    app = new APP('blog');
+    app = new APP();
   }
 
   const Home = {
