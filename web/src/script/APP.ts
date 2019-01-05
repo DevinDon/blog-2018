@@ -47,10 +47,10 @@ class APP {
 
   /**
    * 生成一个单页应用管理器.
-   * @param page 初始页面, 默认为首页.
+   * @param prefix 应用前缀, 默认为空.
    */
-  constructor() {
-    this.api = new API();
+  constructor(private prefix: string = '') {
+    this.api = new API(`/${prefix}/v1`);
     this.dialog = new Dialog();
     this.starrysky = new StarrySky('background');
     this.content = {
@@ -160,11 +160,11 @@ class APP {
 
   /** 监听本地路由. */
   private listeningLocalRoute() {
-    const url: string = location.pathname.slice(1);
+    const url: string[] = location.pathname.split('/').filter(v => v).filter(v => v !== this.prefix);
     // 当前页面刷新, 或从站外链接进入, 重新导航至本页
-    if (url) {
-      const page: Title = url.split('/').filter(v => v)[0] as Title;
-      const param: string[] = url.split('/').filter(v => v).slice(1);
+    if (url.length) {
+      const page: Title = url[0] as Title;
+      const param: string[] = url.slice(1);
       this.active(page, param);
     } else {
       // 否则导航至首页
