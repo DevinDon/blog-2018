@@ -67,7 +67,7 @@ class API {
   private offline: Offline;
 
   constructor(
-    private server: string = '/v1'
+    private server: string = 'v1'
   ) {
     this.offline = {
       articles: [
