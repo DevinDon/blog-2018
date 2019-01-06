@@ -36,7 +36,7 @@
 
   <section id="content-home" class="content">
     <!-- <img src="./assets/image/index.jpg" alt="Home" width="100%"> -->
-    <p style="font-size: 3rem; font-weight: bold;" onmouseover="Home.toggleArticle()">大道虽简，知易行难。</p>
+    <p style="font-size: 3rem; font-weight: bold;" onmouseover="toggleArticle()">大道虽简，知易行难。</p>
     <article id="article-home">
       <p>瀑布的水逆流而上</p>
       <p>蒲公英种子从远处飘回 聚成伞的模样</p>
@@ -102,37 +102,6 @@
   window.onload = () => {
     app = new APP();
   }
-
-  const Home = {
-    toggleArticle: () => {
-      const $art = $('#article-home');
-      if ($art.hasClass('busy')) {
-        return false;
-      }
-      $art.addClass('busy');
-      if ($art.hasClass('show')) {
-        // 隐藏
-        anime({
-          targets: $art.get(0),
-          duration: 1500,
-          height: [475.81, 0],
-          opacity: [1, 0],
-          easing: 'easeInOutCirc',
-          complete: () => $art.removeClass('show').removeClass('busy')
-        });
-      } else {
-        // 展开
-        anime({
-          targets: $art.get(0),
-          duration: 1500,
-          height: [0, 475.81],
-          opacity: [0, 1],
-          easing: 'easeInOutCirc',
-          complete: () => $art.addClass('show').removeClass('busy')
-        });
-      }
-    }
-  };
 
 </script>
 

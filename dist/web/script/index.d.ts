@@ -318,3 +318,4 @@ declare class StarrySky {
     /** 暂停绘制星空. */
     stop(): void;
 }
+declare function toggleArticle(): false | undefined;
