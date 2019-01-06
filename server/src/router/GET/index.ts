@@ -1,17 +1,24 @@
 import { Middleware } from 'koa';
 import { RouterPaths } from 'koa-backend-server';
-import { allowAllCORS } from '../config';
+import { allowAllCORS, files } from '../config';
 import article from './article';
 import image from './image';
 import motto from './motto';
 import song from './song';
+import Statistic from '../../entity/statistic.entity';
 
 /** GET: index. */
 const index: Middleware = async (c, next) => {
   c.body = {
-    params: c.params,
-    body: c.request.body,
-    query: c.query
+    query: c.query,
+    request: c.request,
+    times: {
+      today: await Statistic
+        .createQueryBuilder()
+        .where('`when` > :today', { today: new Date(new Date().toLocaleDateString()).getTime() })
+        .getCount(),
+      total: await Statistic.count()
+    }
   };
   await next();
 };
@@ -20,7 +27,8 @@ const index: Middleware = async (c, next) => {
 const notFound: Middleware = async (c, next) => {
   await next();
   if (c.status === 404) {
-    c.redirect('/');
+    c.body = files.index.toString();
+    c.status = 200;
   }
 };
 
