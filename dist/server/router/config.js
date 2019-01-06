@@ -15,8 +15,8 @@ try {
 }
 catch (err) {
     exports.localConfig = { static: '' };
-    console.warn(`无法读取本地配置. Cannot read local config file.`);
+    console.warn(`无法读取本地配置, 将不会加载静态文件. Cannot read local config file.`);
 }
 exports.files = {
-    index: fs_1.readFileSync(`${exports.localConfig.static}/index.html`)
+    index: exports.localConfig.static ? fs_1.readFileSync(`${exports.localConfig.static}/index.html`).toString() : ''
 };

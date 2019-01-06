@@ -27,8 +27,12 @@ const index: Middleware = async (c, next) => {
 const notFound: Middleware = async (c, next) => {
   await next();
   if (c.status === 404) {
-    c.body = files.index.toString();
-    c.status = 200;
+    if (files.index) {
+      c.body = files.index;
+      c.status = 200;
+    } else {
+      c.redirect('/');
+    }
   }
 };
 
