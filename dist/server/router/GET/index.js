@@ -26,8 +26,13 @@ const index = async (c, next) => {
 const notFound = async (c, next) => {
     await next();
     if (c.status === 404) {
-        c.body = config_1.files.index.toString();
-        c.status = 200;
+        if (config_1.files.index) {
+            c.body = config_1.files.index;
+            c.status = 200;
+        }
+        else {
+            c.redirect('/');
+        }
     }
 };
 exports.GETPATH = {
