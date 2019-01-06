@@ -8,18 +8,26 @@ const article_1 = __importDefault(require("./article"));
 const image_1 = __importDefault(require("./image"));
 const motto_1 = __importDefault(require("./motto"));
 const song_1 = __importDefault(require("./song"));
+const statistic_entity_1 = __importDefault(require("../../entity/statistic.entity"));
 const index = async (c, next) => {
     c.body = {
-        params: c.params,
-        body: c.request.body,
-        query: c.query
+        query: c.query,
+        request: c.request,
+        times: {
+            today: await statistic_entity_1.default
+                .createQueryBuilder()
+                .where('`when` > :today', { today: new Date(new Date().toLocaleDateString()).getTime() })
+                .getCount(),
+            total: await statistic_entity_1.default.count()
+        }
     };
     await next();
 };
 const notFound = async (c, next) => {
     await next();
     if (c.status === 404) {
-        c.redirect('/');
+        c.body = config_1.files.index.toString();
+        c.status = 200;
     }
 };
 exports.GETPATH = {
