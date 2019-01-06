@@ -476,6 +476,10 @@ class APP {
         if (page === this.currectPage) {
             return false;
         }
+        else if (page !== 'about' && page !== 'article' && page !== 'home' && page !== 'image' && page !== 'song') {
+            this.active('home');
+            return true;
+        }
         // 否则执行切换
         /** 先前标签页. */
         const previous = this.content[this.currectPage];

@@ -421,6 +421,9 @@ class APP {
     // 如果要切换的页面是当前页面, 取消执行
     if (page === this.currectPage) {
       return false;
+    } else if (page !== 'about' && page !== 'article' && page !== 'home' && page !== 'image' && page !== 'song') {
+      this.active('home');
+      return true;
     }
     // 否则执行切换
     /** 先前标签页. */

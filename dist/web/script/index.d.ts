@@ -165,7 +165,7 @@ declare class APP {
      * 切换到指定页面.
      * @param page 指定页面.
      */
-    active(page: Title, param?: string[]): Promise<false | undefined>;
+    active(page: Title, param?: string[]): Promise<boolean | undefined>;
 }
 /** 对话框相关. */
 declare class Dialog {
