@@ -1,5 +1,7 @@
-import { Server, KBSConfig } from 'koa-backend-server';
+import { KBSConfig, Server } from 'koa-backend-server';
 import { paths } from './router';
+import { statistic } from './ware';
+import { localConfig } from './router/config';
 
 const config: KBSConfig = {
   address: {
@@ -11,7 +13,7 @@ const config: KBSConfig = {
   router: {
     paths,
     static: {
-      path: './web'
+      path: localConfig.static
     },
     version: 'v1'
   }
@@ -20,6 +22,8 @@ const config: KBSConfig = {
 const server: Server[] = [];
 
 for (let i = 0; i < 2; i++) {
-  server.push(new Server(config));
+  const s = new Server(config);
+  s.use(statistic);
+  server.push(s);
   server[i].listen('0.0.0.0', 8080 + i);
 }

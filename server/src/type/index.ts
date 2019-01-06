@@ -33,3 +33,7 @@ export interface Resp<T = string> {
   status: boolean;
   content: T;
 }
+
+export interface LocalConfig {
+  static: string;
+}
