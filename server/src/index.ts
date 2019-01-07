@@ -22,8 +22,6 @@ const config: KBSConfig = {
 const server: Server[] = [];
 
 for (let i = 0; i < 2; i++) {
-  const s = new Server(config);
-  s.use(statistic);
-  server.push(s);
+  server.push(new Server(config).use(statistic));
   server[i].listen('0.0.0.0', 8080 + i);
 }
