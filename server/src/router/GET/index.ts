@@ -12,6 +12,11 @@ const index: Middleware = async (c, next) => {
   c.body = {
     query: c.query,
     request: c.request,
+    address: {
+      ip: c.request.ip,
+      ips: c.request.ips,
+      host: c.request.host
+    },
     times: {
       today: await Statistic
         .createQueryBuilder()
