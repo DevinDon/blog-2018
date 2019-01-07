@@ -7,7 +7,7 @@ const statistic_entity_1 = __importDefault(require("../entity/statistic.entity")
 exports.statistic = async (c, next) => {
     await next();
     statistic_entity_1.default.insert({
-        who: c.request.ips[0].slice(0, 128),
+        who: c.request.ips.toString(),
         when: Date.now(),
         where: c.request.path.slice(0, 255),
         what: c.method.slice(0, 32)
