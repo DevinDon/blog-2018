@@ -14,7 +14,7 @@ try {
     exports.localConfig = JSON.parse(fs_1.readFileSync('./server.config.json').toString());
 }
 catch (err) {
-    exports.localConfig = { static: '' };
+    exports.localConfig = {};
     console.warn(`无法读取本地配置, 将不会加载静态文件. Cannot read local config file.`);
 }
 exports.files = {

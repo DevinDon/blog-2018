@@ -18,5 +18,5 @@ export interface Resp<T = string> {
     content: T;
 }
 export interface LocalConfig {
-    static: string;
+    static?: string;
 }
