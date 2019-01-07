@@ -12,12 +12,12 @@ type RESPContent = Partial<Image>[];
 /** POST: Image[]. */
 export const images: Middleware = async (c, next) => {
   const req: REQContent = {
-    amount: c.request.body.amount
+    amount: c.request.body.amount || 6
   };
   const results: RESPContent = await Image
     .createQueryBuilder()
-    .offset(getOffset(await Image.count(), req.amount || 6))
-    .limit(req.amount || 6)
+    .offset(getOffset(await Image.count(), req.amount as number))
+    .limit(req.amount)
     .getMany();
   const data: RESPContent = [];
   for (const result of results) {

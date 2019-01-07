@@ -7,12 +7,12 @@ const config_1 = require("../config");
 const song_entity_1 = __importDefault(require("../../entity/song.entity"));
 exports.songs = async (c, next) => {
     const req = {
-        amount: c.request.body.amount
+        amount: c.request.body.amount || 6
     };
     const results = await song_entity_1.default
         .createQueryBuilder()
-        .offset(config_1.getOffset(await song_entity_1.default.count(), req.amount || 6))
-        .limit(req.amount || 6)
+        .offset(config_1.getOffset(await song_entity_1.default.count(), req.amount))
+        .limit(req.amount)
         .getMany();
     const data = [];
     for (const result of results) {
