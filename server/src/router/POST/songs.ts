@@ -12,12 +12,12 @@ type RESPContent = Partial<Song>[];
 /** POST: Song[]. */
 export const songs: Middleware = async (c, next) => {
   const req: REQContent = {
-    amount: c.request.body.amount
+    amount: c.request.body.amount || 6
   };
   const results: RESPContent = await Song
     .createQueryBuilder()
-    .offset(getOffset(await Song.count(), req.amount || 6))
-    .limit(req.amount || 6)
+    .offset(getOffset(await Song.count(), req.amount as number))
+    .limit(req.amount)
     .getMany();
   const data: RESPContent = [];
   for (const result of results) {

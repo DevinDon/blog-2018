@@ -4,12 +4,12 @@ const config_1 = require("../config");
 const motto_entity_1 = require("../../entity/motto.entity");
 exports.mottos = async (c, next) => {
     const req = {
-        amount: c.request.body.amount
+        amount: c.request.body.amount || 10
     };
     const results = await motto_entity_1.Motto
         .createQueryBuilder()
-        .offset(config_1.getOffset(await motto_entity_1.Motto.count(), req.amount || 6))
-        .limit(req.amount || 6)
+        .offset(config_1.getOffset(await motto_entity_1.Motto.count(), req.amount))
+        .limit(req.amount)
         .getMany();
     const data = [];
     for (const result of results) {
