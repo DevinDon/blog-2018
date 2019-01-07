@@ -18,7 +18,7 @@ export let localConfig: LocalConfig;
 try {
   localConfig = JSON.parse(readFileSync('./server.config.json').toString());
 } catch (err) {
-  localConfig = { static: '' };
+  localConfig = {};
   console.warn(`无法读取本地配置, 将不会加载静态文件. Cannot read local config file.`);
 }
 

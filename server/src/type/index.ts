@@ -35,5 +35,5 @@ export interface Resp<T = string> {
 }
 
 export interface LocalConfig {
-  static: string;
+  static?: string;
 }
