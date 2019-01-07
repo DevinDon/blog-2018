@@ -4,7 +4,7 @@ import Statistic from '../entity/statistic.entity';
 export const statistic: Middleware = async (c, next) => {
   await next();
   Statistic.insert({
-    who: c.request.ips.toString(),
+    who: (c.headers['x-forwarded-for'] || '').split(', ')[0] || c.ip || 'unknown',
     when: Date.now(),
     where: c.request.path.slice(0, 255),
     what: c.method.slice(0, 32)
