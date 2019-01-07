@@ -1,6 +1,6 @@
 {
   "name": "blog",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "2018 - 2019 年 Web 设计实训, 前后端.",
   "main": "dist/server/index.js",
   "scripts": {
@@ -10,9 +10,10 @@
     "web",
     "server"
   ],
+  "private": true,
   "dependencies": {
     "jsdom": "^13.1.0",
-    "koa-backend-server": "^0.4.6"
+    "koa-backend-server": "^0.4.8"
   },
   "author": "Devin Don <DevinDon@Foxmail.com>",
   "license": "MIT"

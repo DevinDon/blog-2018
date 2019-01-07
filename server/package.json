@@ -21,7 +21,7 @@
   "private": true,
   "dependencies": {
     "jsdom": "^13.1.0",
-    "koa-backend-server": "^0.4.6"
+    "koa-backend-server": "^0.4.8"
   },
   "devDependencies": {
     "@types/jsdom": "^12.2.1"
