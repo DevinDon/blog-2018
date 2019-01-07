@@ -21,8 +21,6 @@ const config = {
 };
 const server = [];
 for (let i = 0; i < 2; i++) {
-    const s = new koa_backend_server_1.Server(config);
-    s.use(ware_1.statistic);
-    server.push(s);
+    server.push(new koa_backend_server_1.Server(config).use(ware_1.statistic));
     server[i].listen('0.0.0.0', 8080 + i);
 }
