@@ -15,7 +15,8 @@ const index: Middleware = async (c, next) => {
     address: {
       ip: c.request.ip,
       ips: c.request.ips,
-      host: c.request.host
+      host: c.request.host,
+      realip: (c.headers['x-forwarded-for'] || '').split(', ')[0] || c.ip || 'unknown'
     },
     times: {
       today: await Statistic
