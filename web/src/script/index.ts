@@ -13,7 +13,7 @@ function toggleArticle() {
   if ($art.hasClass('show')) {
     // 隐藏
     anime({
-      targets: $art.get(0),
+      targets: $art[0],
       duration: 1500,
       height: [475.81, 0],
       opacity: [1, 0],
@@ -23,7 +23,7 @@ function toggleArticle() {
   } else {
     // 展开
     anime({
-      targets: $art.get(0),
+      targets: $art[0],
       duration: 1500,
       height: [0, 475.81],
       opacity: [0, 1],

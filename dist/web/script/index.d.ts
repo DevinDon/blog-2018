@@ -59,7 +59,7 @@ declare class API {
     private server;
     private offline;
     constructor(dialog: Dialog, server?: string);
-    /** 获取一篇随即文章. */
+    /** 获取一篇随机文章. */
     getRandomArticle(): Article;
     /** 获取一张随机图片. */
     getRandomImage(): Image;
@@ -69,22 +69,23 @@ declare class API {
     getRandomSong(): Song;
     private catchAPIError;
     /**
-     * 获取最近的若干篇文章.
-     * @param options 条件, 若为空则获取最近的 5 篇文章.
+     * 获取若干篇文章.
+     * @param options 条件, 若为空则获取随机的 6 篇文章.
      */
     getArticles(options?: Partial<Article>): Promise<Article[]>;
     /**
-     * 获取最近的若干篇文章.
-     * @param options 条件, 若为空则获取最近的 5 篇文章.
+     * 获取随机的若干张图片.
+     * @param options 条件, 若为空则获取随机的 6 张图片.
      */
     getImages(options?: Partial<Image>): Promise<Image[]>;
     /**
-     * Async 获取座右铭.
+     * 获取随机的若干条格言.
+     * @param options 条件, 若为空则获取随机的 10 条格言.
      */
     getMottos(options?: any): Promise<Motto[]>;
     /**
-     * 获取最近的若干首音乐.
-     * @param options 条件, 若为空则获取最近的 5 首音乐.
+     * 获取随机的若干首音乐.
+     * @param options 条件, 若为空则获取随机的 6 首音乐.
      */
     getSongs(options?: Partial<Song>): Promise<Song[]>;
 }
@@ -142,7 +143,7 @@ declare class APP {
      */
     constructor();
     /** 滚动. */
-    static scrollTo(end?: XYZ, position?: XYZ): void;
+    static scrollTo(end?: XYZ, position?: XYZ): Promise<void>;
     /** 定时器任务. */
     private init;
     /** 进入动画. */

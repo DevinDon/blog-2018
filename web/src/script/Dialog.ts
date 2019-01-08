@@ -24,7 +24,7 @@ class Dialog {
     // 修复监听器的无限添加
     target[0].onclick = async () => {
       await anime({
-        targets: target.get(0),
+        targets: target[0],
         opacity: [1, 0],
         duration: 500,
         easing: 'easeInOutSine'

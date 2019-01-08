@@ -41,7 +41,7 @@ class API {
         };
         this.getMottos({ amount: 10 }).then(v => v.length ? this.offline.mottos = v : console.log(v, this.offline.mottos));
     }
-    /** 获取一篇随即文章. */
+    /** 获取一篇随机文章. */
     getRandomArticle() {
         return this.offline.articles[Math.floor(Math.random() * this.offline.articles.length)];
     }
@@ -62,8 +62,8 @@ class API {
         return [];
     }
     /**
-     * 获取最近的若干篇文章.
-     * @param options 条件, 若为空则获取最近的 5 篇文章.
+     * 获取若干篇文章.
+     * @param options 条件, 若为空则获取随机的 6 篇文章.
      */
     async getArticles(options) {
         return axios
@@ -80,8 +80,8 @@ class API {
         ]);
     }
     /**
-     * 获取最近的若干篇文章.
-     * @param options 条件, 若为空则获取最近的 5 篇文章.
+     * 获取随机的若干张图片.
+     * @param options 条件, 若为空则获取随机的 6 张图片.
      */
     async getImages(options) {
         return axios
@@ -98,7 +98,8 @@ class API {
         ]);
     }
     /**
-     * Async 获取座右铭.
+     * 获取随机的若干条格言.
+     * @param options 条件, 若为空则获取随机的 10 条格言.
      */
     async getMottos(options) {
         return axios
@@ -115,8 +116,8 @@ class API {
         ]);
     }
     /**
-     * 获取最近的若干首音乐.
-     * @param options 条件, 若为空则获取最近的 5 首音乐.
+     * 获取随机的若干首音乐.
+     * @param options 条件, 若为空则获取随机的 6 首音乐.
      */
     async getSongs(options) {
         return axios
@@ -201,7 +202,7 @@ class APP {
         y: pageYOffset,
         z: 0
     }) {
-        anime({
+        return anime({
             targets: position,
             x: end.x,
             y: end.y,
@@ -209,7 +210,7 @@ class APP {
             duration: 1000,
             easing: 'easeInOutSine',
             run: () => scrollTo(position.x, position.y)
-        });
+        }).finished;
     }
     /** 定时器任务. */
     async init() {
@@ -327,7 +328,7 @@ class APP {
             complete: () => $content.children(':not(.init)').remove() // 移除所有其他元素
         })
             .add({
-            targets: $loading.get(0),
+            targets: $loading[0],
             begin: () => $loading.removeClass('hide'),
             opacity: [0, 1],
             duration: 500,
@@ -357,7 +358,7 @@ class APP {
         }
         // 隐藏 loading
         await anime({
-            targets: $loading.get(0),
+            targets: $loading[0],
             opacity: [1, 0],
             duration: 500,
             easing: 'easeInOutSine',
@@ -389,33 +390,33 @@ class APP {
             const $hrdown = $('<hr class="down">');
             const $copyright = $(`<p class="copyright"><a href="http://wufazhuce.com/article/${article.id}">ONE 一个 版权所有</a></p>`);
             $card.click(async (e) => {
-                if ($text.get(0).contains(e.target)) {
+                if ($text[0].contains(e.target)) {
                     return false;
                 }
                 const text = $card.find('article');
+                // 滚动至文章标题处
+                APP.scrollTo({ x: 0, y: $card[0].offsetTop, z: 0 });
                 if (text.hasClass('hide')) { // 如果未展开文章, 隐藏其他卡片, 展开当前文章
                     text.removeClass('hide');
-                    anime({
-                        targets: text.get(0),
+                    await anime({
+                        targets: text[0],
                         opacity: [0, 1],
                         height: [0, '100vh'],
                         duration: 500,
                         easing: 'easeInOutSine',
                         complete: () => text.css('height', 'fit-content')
-                    });
-                    APP.scrollTo({ x: 0, y: $card.get(0).offsetTop, z: 0 });
+                    }).finished;
                 }
                 else { // 如果当前文章已展开, 则收起文章并显示其他卡片
-                    anime({
-                        targets: text.get(0),
+                    await anime({
+                        targets: text[0],
                         begin: () => text.css('height', text.css('height')),
                         opacity: [1, 0],
                         height: 0,
                         duration: 500,
                         easing: 'easeInOutSine',
                         complete: () => text.addClass('hide')
-                    });
-                    APP.scrollTo({ x: 0, y: $card.get(0).offsetTop, z: 0 });
+                    }).finished;
                 }
             });
             $card.append($title, $author, $hrup, $summary, $text, $hrdown, $copyright);
@@ -446,7 +447,7 @@ class APP {
                 this.dialog.toggleFull();
                 this.dialog.add(card);
                 anime({
-                    targets: card.get(0),
+                    targets: card[0],
                     opacity: [0, 1],
                     duration: 500,
                     easing: 'easeInOutSine'
@@ -587,7 +588,7 @@ class Dialog {
         // 修复监听器的无限添加
         target[0].onclick = async () => {
             await anime({
-                targets: target.get(0),
+                targets: target[0],
                 opacity: [1, 0],
                 duration: 500,
                 easing: 'easeInOutSine'
@@ -866,7 +867,7 @@ function toggleArticle() {
     if ($art.hasClass('show')) {
         // 隐藏
         anime({
-            targets: $art.get(0),
+            targets: $art[0],
             duration: 1500,
             height: [475.81, 0],
             opacity: [1, 0],
@@ -877,7 +878,7 @@ function toggleArticle() {
     else {
         // 展开
         anime({
-            targets: $art.get(0),
+            targets: $art[0],
             duration: 1500,
             height: [0, 475.81],
             opacity: [0, 1],

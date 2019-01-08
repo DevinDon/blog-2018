@@ -124,7 +124,7 @@ class APP {
       z: 0
     }
   ) {
-    anime({
+    return anime({
       targets: position,
       x: end.x,
       y: end.y,
@@ -132,7 +132,7 @@ class APP {
       duration: 1000,
       easing: 'easeInOutSine',
       run: () => scrollTo(position.x, position.y)
-    });
+    }).finished;
   }
 
   /** 定时器任务. */
@@ -254,7 +254,7 @@ class APP {
         complete: () => $content.children(':not(.init)').remove() // 移除所有其他元素
       })
       .add({ // 显示 loading
-        targets: $loading.get(0),
+        targets: $loading[0],
         begin: () => $loading.removeClass('hide'),
         opacity: [0, 1],
         duration: 500,
@@ -284,7 +284,7 @@ class APP {
     }
     // 隐藏 loading
     await anime({
-      targets: $loading.get(0),
+      targets: $loading[0],
       opacity: [1, 0],
       duration: 500,
       easing: 'easeInOutSine',
@@ -317,32 +317,32 @@ class APP {
       const $hrdown = $('<hr class="down">');
       const $copyright = $(`<p class="copyright"><a href="http://wufazhuce.com/article/${article.id}">ONE 一个 版权所有</a></p>`);
       $card.click(async (e) => {
-        if ($text.get(0).contains(e.target)) {
+        if ($text[0].contains(e.target)) {
           return false;
         }
         const text = $card.find('article');
+        // 滚动至文章标题处
+        APP.scrollTo({ x: 0, y: $card[0].offsetTop, z: 0 });
         if (text.hasClass('hide')) { // 如果未展开文章, 隐藏其他卡片, 展开当前文章
           text.removeClass('hide');
-          anime({
-            targets: text.get(0),
+          await anime({
+            targets: text[0],
             opacity: [0, 1],
             height: [0, '100vh'],
             duration: 500,
             easing: 'easeInOutSine',
             complete: () => text.css('height', 'fit-content')
-          });
-          APP.scrollTo({ x: 0, y: $card.get(0).offsetTop, z: 0 });
+          }).finished;
         } else { // 如果当前文章已展开, 则收起文章并显示其他卡片
-          anime({
-            targets: text.get(0),
+          await anime({
+            targets: text[0],
             begin: () => text.css('height', text.css('height')),
             opacity: [1, 0],
             height: 0,
             duration: 500,
             easing: 'easeInOutSine',
             complete: () => text.addClass('hide')
-          });
-          APP.scrollTo({ x: 0, y: $card.get(0).offsetTop, z: 0 });
+          }).finished;
         }
       });
       $card.append(
@@ -389,7 +389,7 @@ class APP {
         this.dialog.toggleFull();
         this.dialog.add(card);
         anime({
-          targets: card.get(0),
+          targets: card[0],
           opacity: [0, 1],
           duration: 500,
           easing: 'easeInOutSine'
