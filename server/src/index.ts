@@ -13,7 +13,7 @@ const config: KBSConfig = {
   router: {
     paths,
     static: {
-      path: localConfig.static
+      path: localConfig.static || ''
     },
     version: 'v1'
   }
