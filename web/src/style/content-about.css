@@ -44,6 +44,7 @@
 }
 
 #content-about>.where>.card>img {
+  cursor: pointer;
   width: 96px;
   /* animation-name: invertFrom100; */
   animation-duration: 350ms;
