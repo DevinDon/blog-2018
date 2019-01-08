@@ -106,7 +106,7 @@ class API {
     this.getMottos({ amount: 10 }).then(v => v.length ? this.offline.mottos = v : console.log(v, this.offline.mottos));
   }
 
-  /** 获取一篇随即文章. */
+  /** 获取一篇随机文章. */
   public getRandomArticle(): Article {
     return this.offline.articles[Math.floor(Math.random() * this.offline.articles.length)];
   }
@@ -132,8 +132,8 @@ class API {
   }
 
   /**
-   * 获取最近的若干篇文章.
-   * @param options 条件, 若为空则获取最近的 5 篇文章.
+   * 获取若干篇文章.
+   * @param options 条件, 若为空则获取随机的 6 篇文章.
    */
   public async getArticles(options?: Partial<Article>): Promise<Article[]> {
     return axios
@@ -151,8 +151,8 @@ class API {
   }
 
   /**
-   * 获取最近的若干篇文章.
-   * @param options 条件, 若为空则获取最近的 5 篇文章.
+   * 获取随机的若干张图片.
+   * @param options 条件, 若为空则获取随机的 6 张图片.
    */
   public async getImages(options?: Partial<Image>): Promise<Image[]> {
     return axios
@@ -170,7 +170,8 @@ class API {
   }
 
   /**
-   * Async 获取座右铭.
+   * 获取随机的若干条格言.
+   * @param options 条件, 若为空则获取随机的 10 条格言.
    */
   public async getMottos(options?: any): Promise<Motto[]> {
     return axios
@@ -188,8 +189,8 @@ class API {
   }
 
   /**
-   * 获取最近的若干首音乐.
-   * @param options 条件, 若为空则获取最近的 5 首音乐.
+   * 获取随机的若干首音乐.
+   * @param options 条件, 若为空则获取随机的 6 首音乐.
    */
   public async getSongs(options?: Partial<Song>): Promise<Song[]> {
     return axios
