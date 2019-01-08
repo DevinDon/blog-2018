@@ -55,9 +55,10 @@ interface Offline {
 }
 /** API 相关. */
 declare class API {
+    private dialog;
     private server;
     private offline;
-    constructor(server?: string);
+    constructor(dialog: Dialog, server?: string);
     /** 获取一篇随即文章. */
     getRandomArticle(): Article;
     /** 获取一张随机图片. */
@@ -66,6 +67,7 @@ declare class API {
     getRandomMotto(): Motto;
     /** 获取一首随机歌曲. */
     getRandomSong(): Song;
+    private catchAPIError;
     /**
      * 获取最近的若干篇文章.
      * @param options 条件, 若为空则获取最近的 5 篇文章.
@@ -90,6 +92,10 @@ declare class API {
 declare type Title = 'home' | 'article' | 'image' | 'song' | 'about' | 'blog';
 /** 对应中文名称. */
 declare type Name = '首页' | '文字' | '时刻' | '声音' | '关于' | '窗台';
+interface APPError {
+    code: number;
+    message?: string;
+}
 interface PageElement {
     name: Name;
     nav: HTMLLinkElement;
@@ -114,6 +120,8 @@ interface Page {
 }
 /** 应用核心, 用于页面控制. */
 declare class APP {
+    /** 错误: 不支持本地访问. */
+    static ERRORNOTSUPPORTLOCAL: number;
     /** API 服务. */
     private api;
     /** 对话框管理. */
@@ -174,9 +182,11 @@ declare class Dialog {
     /** 对话框区域. */
     private area;
     constructor();
-    toggleFull(): void;
-    add(target: JQuery<HTMLElement>): void;
-    clear(): void;
+    /** 设置网页暗色遮罩层. */
+    toggleFull(): this;
+    /** 向页面中添加一个自定义弹框. */
+    add(target: JQuery<HTMLElement>): JQuery<HTMLElement>;
+    clear(): this;
     /**
      * 在页面上生成一个对话框.
      * @param text 对话框文本.
@@ -319,3 +329,5 @@ declare class StarrySky {
     stop(): void;
 }
 declare function toggleArticle(): false | undefined;
+declare let app: APP;
+declare let able: boolean;

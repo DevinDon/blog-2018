@@ -1,7 +1,8 @@
 "use strict";
 /** API 相关. */
 class API {
-    constructor(server = 'v1') {
+    constructor(dialog, server = 'v1') {
+        this.dialog = dialog;
         this.server = server;
         this.offline = {
             articles: [
@@ -56,6 +57,10 @@ class API {
     getRandomSong() {
         return this.offline.songs[Math.floor(Math.random() * this.offline.songs.length)];
     }
+    catchAPIError(message = '网络错误') {
+        this.dialog.generate(message, 'error');
+        return [];
+    }
     /**
      * 获取最近的若干篇文章.
      * @param options 条件, 若为空则获取最近的 5 篇文章.
@@ -64,7 +69,7 @@ class API {
         return axios
             .post(`${this.server}/articles`, { params: options })
             .then(v => v.data.content)
-            .catch(r => [])
+            .catch(r => this.catchAPIError(`服务器错误, 无法获取文章.`))
             .then(v => v.length ? v : [
             this.getRandomArticle(),
             this.getRandomArticle(),
@@ -82,7 +87,7 @@ class API {
         return axios
             .post(`${this.server}/images`, { params: options })
             .then(v => v.data.content)
-            .catch(r => [])
+            .catch(r => this.catchAPIError(`服务器错误, 无法获取图片.`))
             .then(v => v.length ? v : [
             this.getRandomImage(),
             this.getRandomImage(),
@@ -99,7 +104,7 @@ class API {
         return axios
             .post(`${this.server}/mottos`, { param: options })
             .then(v => v.data.content)
-            .catch(r => [])
+            .catch(r => this.catchAPIError(`服务器错误, 无法获取格言.`))
             .then(v => v.length ? v : [
             this.getRandomMotto(),
             this.getRandomMotto(),
@@ -117,7 +122,7 @@ class API {
         return axios
             .post(`${this.server}/songs`, { params: options })
             .then(v => v.data.content)
-            .catch(r => [])
+            .catch(r => this.catchAPIError(`服务器错误, 无法获取音乐.`))
             .then(v => v.length ? v : [
             this.getRandomSong(),
             this.getRandomSong(),
@@ -136,17 +141,17 @@ class APP {
     constructor() {
         /** 当前页面. */
         this.currectPage = 'blog';
-        if (location.hostname !== 'localhost') {
-            this.prefix = 'blog';
-            this.api = new API('api/v1');
-        }
-        else {
-            this.prefix = '';
-            this.api = new API();
-        }
         this.dialog = new Dialog();
         this.starrysky = new StarrySky('background');
         this.player = new Player(this.dialog);
+        if (location.hostname !== 'localhost') {
+            this.prefix = 'blog';
+            this.api = new API(this.dialog, 'api/v1');
+        }
+        else {
+            this.prefix = '';
+            this.api = new API(this.dialog);
+        }
         this.content = {
             home: {
                 name: '首页',
@@ -208,9 +213,27 @@ class APP {
     }
     /** 定时器任务. */
     async init() {
-        await this.welcome();
-        this.changeMotto();
-        this.listeningLocalRoute();
+        try {
+            await this.welcome();
+            this.changeMotto();
+            this.listeningLocalRoute();
+        }
+        catch (err) {
+            const e = err;
+            if (e.code === APP.ERRORNOTSUPPORTLOCAL) {
+                new Dialog()
+                    .clear()
+                    .toggleFull()
+                    .add($(`
+<div style="text-align: center; font-size: larger; color: black; filter: invert(100%);">
+  <h1>核心路由不支持使用文件协议 file: 访问.</h1>
+  <p><a href="https://demo.don.red/blog">请连接至网络后查看在线样例.</a></p>
+  <p><a href="http://localhost:8080">或启动本地服务器后访问 http://localhost:8080</a></p>
+</div>
+          `))[0].onclick = () => { };
+                able = false;
+            }
+        }
     }
     /** 进入动画. */
     async welcome() {
@@ -246,6 +269,12 @@ class APP {
     }
     /** 监听本地路由. */
     listeningLocalRoute() {
+        if (location.origin.split(':')[0] === 'file') {
+            throw {
+                code: APP.ERRORNOTSUPPORTLOCAL,
+                message: '核心路由不支持本地访问.'
+            };
+        }
         const url = location.pathname.split('/').filter(v => v).filter(v => v !== this.prefix);
         // 当前页面刷新, 或从站外链接进入, 重新导航至本页
         if (url.length) {
@@ -536,6 +565,8 @@ class APP {
         this.page.toolbox.setAttribute('class', page);
     }
 }
+/** 错误: 不支持本地访问. */
+APP.ERRORNOTSUPPORTLOCAL = 1;
 /** 对话框相关. */
 class Dialog {
     constructor() {
@@ -543,14 +574,18 @@ class Dialog {
         this.no = 0;
         this.area = document.getElementById('dialog-area');
     }
+    /** 设置网页暗色遮罩层. */
     toggleFull() {
         this.area.classList.contains('full')
             ? this.area.classList.remove('full')
             : this.area.classList.add('full');
+        return this;
     }
+    /** 向页面中添加一个自定义弹框. */
     add(target) {
         $(this.area).append(target);
-        target.click(async () => {
+        // 修复监听器的无限添加
+        target[0].onclick = async () => {
             await anime({
                 targets: target.get(0),
                 opacity: [1, 0],
@@ -559,10 +594,12 @@ class Dialog {
             }).finished;
             this.clear();
             this.toggleFull();
-        });
+        };
+        return target;
     }
     clear() {
         $(this.area).children().remove();
+        return this;
     }
     /**
      * 在页面上生成一个对话框.
@@ -849,3 +886,20 @@ function toggleArticle() {
         });
     }
 }
+let app;
+let able = true;
+window.onload = () => {
+    app = new APP();
+    $('#content-about>div.where>div:nth-child(1)').click(e => {
+        app.dialog.generate(`Meow~ Here is my GitHub~<br>我住在 GitHub 这里.`, 'warning');
+    });
+    $('#content-about>div.where>div:nth-child(2)').click(e => {
+        app.dialog.generate(`You found my email address!<br>给我发一封邮件试试呀.`, 'info');
+    });
+    $('#content-about>div.where>div:nth-child(3)').click(e => {
+        app.dialog.generate(`Ah, is this not a 404 website?<br>你可能到不了这里.`, 'error');
+    });
+    $('#content-about>div.where>div:nth-child(4)').click(e => {
+        app.dialog.generate(`That is myself!<br>点开看看在线例子, 好像没什么不一样.`, 'info');
+    });
+};
