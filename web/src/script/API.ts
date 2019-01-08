@@ -65,6 +65,7 @@ class API {
   private offline: Offline;
 
   constructor(
+    private dialog: Dialog,
     private server: string = 'v1'
   ) {
     this.offline = {
@@ -125,6 +126,11 @@ class API {
     return this.offline.songs[Math.floor(Math.random() * this.offline.songs.length)];
   }
 
+  private catchAPIError(message: string = '网络错误'): any[] {
+    this.dialog.generate(message, 'error');
+    return [];
+  }
+
   /**
    * 获取最近的若干篇文章.
    * @param options 条件, 若为空则获取最近的 5 篇文章.
@@ -133,7 +139,7 @@ class API {
     return axios
       .post<Resp<Article[]>>(`${this.server}/articles`, { params: options })
       .then(v => v.data.content)
-      .catch(r => [])
+      .catch(r => this.catchAPIError(`服务器错误, 无法获取文章.`))
       .then(v => v.length ? v : [
         this.getRandomArticle(),
         this.getRandomArticle(),
@@ -152,7 +158,7 @@ class API {
     return axios
       .post<Resp<Image[]>>(`${this.server}/images`, { params: options })
       .then(v => v.data.content)
-      .catch(r => [])
+      .catch(r => this.catchAPIError(`服务器错误, 无法获取图片.`))
       .then(v => v.length ? v : [
         this.getRandomImage(),
         this.getRandomImage(),
@@ -170,7 +176,7 @@ class API {
     return axios
       .post<Resp<Motto[]>>(`${this.server}/mottos`, { param: options })
       .then(v => v.data.content)
-      .catch(r => [])
+      .catch(r => this.catchAPIError(`服务器错误, 无法获取格言.`))
       .then(v => v.length ? v : [
         this.getRandomMotto(),
         this.getRandomMotto(),
@@ -189,7 +195,7 @@ class API {
     return axios
       .post<Resp<Song[]>>(`${this.server}/songs`, { params: options })
       .then(v => v.data.content)
-      .catch(r => [])
+      .catch(r => this.catchAPIError(`服务器错误, 无法获取音乐.`))
       .then(v => v.length ? v : [
         this.getRandomSong(),
         this.getRandomSong(),
