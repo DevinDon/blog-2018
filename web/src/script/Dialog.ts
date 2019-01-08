@@ -10,15 +10,19 @@ class Dialog {
     this.area = document.getElementById('dialog-area') as HTMLDivElement;
   }
 
+  /** 设置网页暗色遮罩层. */
   public toggleFull() {
     this.area.classList.contains('full')
       ? this.area.classList.remove('full')
       : this.area.classList.add('full');
+    return this;
   }
 
+  /** 向页面中添加一个自定义弹框. */
   public add(target: JQuery<HTMLElement>) {
     $(this.area).append(target);
-    target.click(async () => {
+    // 修复监听器的无限添加
+    target[0].onclick = async () => {
       await anime({
         targets: target.get(0),
         opacity: [1, 0],
@@ -27,11 +31,13 @@ class Dialog {
       }).finished;
       this.clear();
       this.toggleFull();
-    });
+    };
+    return target;
   }
 
   public clear() {
     $(this.area).children().remove();
+    return this;
   }
 
   /**
