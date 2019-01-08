@@ -3,6 +3,11 @@ type Title = 'home' | 'article' | 'image' | 'song' | 'about' | 'blog';
 /** 对应中文名称. */
 type Name = '首页' | '文字' | '时刻' | '声音' | '关于' | '窗台';
 
+interface APPError {
+  code: number;
+  message?: string;
+}
+
 interface PageElement {
   name: Name;
   nav: HTMLLinkElement;
@@ -31,6 +36,9 @@ interface Page {
 /** 应用核心, 用于页面控制. */
 class APP {
 
+  /** 错误: 不支持本地访问. */
+  public static ERRORNOTSUPPORTLOCAL: number = 1;
+
   /** API 服务. */
   private api: API;
   /** 对话框管理. */
@@ -53,16 +61,16 @@ class APP {
    * 生成一个单页应用管理器.
    */
   constructor() {
-    if (location.hostname !== 'localhost') {
-      this.prefix = 'blog';
-      this.api = new API('api/v1');
-    } else {
-      this.prefix = '';
-      this.api = new API();
-    }
     this.dialog = new Dialog();
     this.starrysky = new StarrySky('background');
     this.player = new Player(this.dialog);
+    if (location.hostname !== 'localhost') {
+      this.prefix = 'blog';
+      this.api = new API(this.dialog, 'api/v1');
+    } else {
+      this.prefix = '';
+      this.api = new API(this.dialog);
+    }
     this.content = {
       home: {
         name: '首页',
@@ -129,9 +137,28 @@ class APP {
 
   /** 定时器任务. */
   private async init() {
-    await this.welcome();
-    this.changeMotto();
-    this.listeningLocalRoute();
+    try {
+      await this.welcome();
+      this.changeMotto();
+      this.listeningLocalRoute();
+    } catch (err) {
+      const e: APPError = err;
+      if (e.code === APP.ERRORNOTSUPPORTLOCAL) {
+        new Dialog()
+          .clear()
+          .toggleFull()
+          .add(
+            $(`
+<div style="text-align: center; font-size: larger; color: black; filter: invert(100%);">
+  <h1>核心路由不支持使用文件协议 file: 访问.</h1>
+  <p><a href="https://demo.don.red/blog">请连接至网络后查看在线样例.</a></p>
+  <p><a href="http://localhost:8080">或启动本地服务器后访问 http://localhost:8080</a></p>
+</div>
+          `)
+          )[0].onclick = () => { };
+        able = false;
+      }
+    }
   }
 
   /** 进入动画. */
@@ -170,6 +197,12 @@ class APP {
 
   /** 监听本地路由. */
   private listeningLocalRoute() {
+    if (location.origin.split(':')[0] === 'file') {
+      throw {
+        code: APP.ERRORNOTSUPPORTLOCAL,
+        message: '核心路由不支持本地访问.'
+      };
+    }
     const url: string[] = location.pathname.split('/').filter(v => v).filter(v => v !== this.prefix);
     // 当前页面刷新, 或从站外链接进入, 重新导航至本页
     if (url.length) {
