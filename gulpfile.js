@@ -33,9 +33,9 @@ const PATH = {
 async function updateScript() {
   return new Promise((res, rej) => {
     browserify({
-      basedir: '.',
+      basedir: PATH.client.path,
       debug: true,
-      entries: [PATH.client.src + 'script/index.ts']
+      entries: ['src/script/index.ts']
     })
       .plugin(tsify)
       .bundle()
@@ -80,7 +80,7 @@ async function updateStyle() {
 
 async function updateServer() {
   return new Promise((res, rej) => {
-    gulp.src(PATH.server.src + '**/*')
+    gulp.src(PATH.server.src + '**/*.ts')
       .pipe(gulpTypeScript.createProject(PATH.server.path + 'tsconfig.json')())
       // .js
       .on('end', res)
@@ -137,7 +137,7 @@ gulp.task('build', async () => {
 gulp.task('pack', async () => {
   gulp.src(PATH.docker.path + '**/*')
     .pipe(gulp.dest(PATH.dist));
-  gulp.src(PATH.client.dist + '/**/*')
+  gulp.src(PATH.client.dist + '/**/*.js')
     .pipe(gulp.dest(PATH.dist + 'client'));
   gulp.src([PATH.server.dist + '**/*.js', PATH.server.path + '*.json'])
     .pipe(gulp.dest(PATH.dist + 'server'));
