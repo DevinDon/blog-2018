@@ -1,5 +1,5 @@
 /** 立体坐标, Z 轴保留. */
-interface XYZ {
+export interface XYZ {
   x: number;
   y: number;
   z: number;
@@ -18,7 +18,7 @@ interface Star {
 }
 
 /** 星空. */
-class StarrySky {
+export class StarrySky {
 
   /** 画布元素. */
   private canvas: HTMLCanvasElement;
@@ -27,7 +27,7 @@ class StarrySky {
   /** 星星数组. */
   private stars: Star[] = [];
   /** Animation handle. */
-  private handle: number = 0;
+  private handle = 0;
   /** 鼠标位置. */
   private cursor: XYZ = { x: 0, y: 0, z: 0 };
 
@@ -171,3 +171,5 @@ class StarrySky {
   }
 
 }
+
+export default StarrySky;

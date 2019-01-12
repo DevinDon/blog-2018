@@ -1,3 +1,6 @@
+import axios from 'axios';
+import Dialog from './Dialog';
+
 /** 响应内容. */
 interface Resp<T = string> {
   /** 数据包编号. */
@@ -16,7 +19,7 @@ interface Motto {
 }
 
 /** 文章. */
-interface Article {
+export interface Article {
   /** 编号. */
   id: number;
   /** 标题. */
@@ -34,7 +37,7 @@ interface Article {
 }
 
 /** 图片数据.  */
-interface Image {
+export interface Image {
   id: number;
   link: string;
   image: string;
@@ -43,7 +46,7 @@ interface Image {
 }
 
 /** 音乐数据. */
-interface Song {
+export interface Song {
   id: number;
   title: string;
   artist: string;
@@ -60,7 +63,7 @@ interface Offline {
 }
 
 /** API 相关. */
-class API {
+export class API {
 
   private offline: Offline;
 
@@ -208,3 +211,5 @@ class API {
   }
 
 }
+
+export default API;
