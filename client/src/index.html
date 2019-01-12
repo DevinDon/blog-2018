@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="./assets/image/favicon.png" type="image/x-icon">
-  <link rel="stylesheet" href="./style/index.css">
+  <link rel="stylesheet" href="./index.css">
   <title>窗台</title>
 </head>
 
@@ -17,9 +17,9 @@
   </canvas>
   <div id="dialog-area"></div>
   <div id="toolbox" class="show">
-    <div class="button box" onclick="APP.scrollTo({x: 0, y: 0, z: 0})">回到顶部</div>
-    <div class="button box" onclick="app.refresh()">换一换</div>
-    <div class="button box" onclick="APP.scrollTo({x: 0, y: document.body.offsetHeight, z: 0})">前往底部</div>
+    <div class="button box">回到顶部</div>
+    <div class="button box">换一换</div>
+    <div class="button box">前往底部</div>
   </div>
 
   <header>
@@ -36,7 +36,7 @@
 
   <section id="content-home" class="content">
     <!-- <img src="./assets/image/index.jpg" alt="Home" width="100%"> -->
-    <p style="font-size: 3rem; font-weight: bold;" onmouseover="toggleArticle()">大道虽简，知易行难。</p>
+    <p style="font-size: 3rem; font-weight: bold;">大道虽简，知易行难。</p>
     <article id="article-home">
       <p>瀑布的水逆流而上</p>
       <p>蒲公英种子从远处飘回 聚成伞的模样</p>
@@ -106,10 +106,7 @@
 
 </body>
 
-<script src="./script/lib/anime.min.js"></script>
-<script src="./script/lib/axios.min.js"></script>
-<script src="./script/lib/jquery.min.js"></script>
-<script src="./script/lib/player.min.js"></script>
-<script src="./script/index.js"></script>
+<script src="https://y.gtimg.cn/music/h5/player/player.js?max_age=2592000"></script>
+<script src="./index.js"></script>
 
 </html>
