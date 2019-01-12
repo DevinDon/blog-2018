@@ -6,7 +6,7 @@ let app: APP;
 
 window.onload = () => {
   app = new APP();
-  $('#content-home').click(() => {
+  $('#content-home > p').mouseenter(() => {
     const $art = $('#article-home');
     if ($art.hasClass('busy')) {
       return false;
@@ -34,6 +34,9 @@ window.onload = () => {
       });
     }
   });
+  $('#toolbox > div:nth-child(1)').click(() => APP.scrollTo({ x: 0, y: 0, z: 0 }));
+  $('#toolbox > div:nth-child(2)').click(() => app.refresh());
+  $('#toolbox > div:nth-child(3)').click(() => APP.scrollTo({ x: 0, y: document.body.offsetHeight, z: 0 }));
   $('#content-about>div.where>div:nth-child(1)').click(e => {
     app.dialog.generate(`Meow~ Here is my GitHub~<br>我住在 GitHub 这里.`, 'warning');
   });
