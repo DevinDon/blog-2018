@@ -121,6 +121,7 @@ export class Player {
       targets: this.$albumimage[0],
       rotate: 360,
       duration: 12 * 1000,
+      easing: [0, 0, 0, 0],
       autoplay: false,
       loop: true
     });
