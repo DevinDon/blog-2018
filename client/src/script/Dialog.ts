@@ -1,8 +1,11 @@
+import anime from 'animejs';
+import $ from 'jquery';
+
 /** 对话框相关. */
-class Dialog {
+export class Dialog {
 
   /** 编号. */
-  private no: number = 0;
+  private no = 0;
   /** 对话框区域. */
   private area: HTMLDivElement;
 
@@ -91,3 +94,5 @@ class Dialog {
   }
 
 }
+
+export default Dialog;

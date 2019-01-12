@@ -1,3 +1,10 @@
+import anime from 'animejs';
+import $ from 'jquery';
+import API, { Article, Image, Song } from './API';
+import Dialog from './Dialog';
+import Player from './Player';
+import StarrySky, { XYZ } from './StarrySky';
+
 /** 标题类型 */
 type Title = 'home' | 'article' | 'image' | 'song' | 'about' | 'blog';
 /** 对应中文名称. */
@@ -34,10 +41,10 @@ interface Page {
 }
 
 /** 应用核心, 用于页面控制. */
-class APP {
+export class APP {
 
   /** 错误: 不支持本地访问. */
-  public static ERRORNOTSUPPORTLOCAL: number = 1;
+  public static ERRORNOTSUPPORTLOCAL = 1;
 
   /** API 服务. */
   private api: API;
@@ -162,7 +169,6 @@ class APP {
 </div>
           `)
           )[0].onclick = () => { };
-        able = false;
       }
     }
   }

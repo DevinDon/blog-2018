@@ -1,3 +1,8 @@
+import anime from 'animejs';
+import $ from 'jquery';
+import { Song } from './API';
+import Dialog from './Dialog';
+
 interface Params {
   target?: string;
   filter?: boolean;
@@ -65,7 +70,7 @@ declare class QMplayer {
  * 基于 QMPlayer 内核的网页播放器.
  * 暂时没有考虑复用问题, 如果内联样式和资源的话, 看起来就很像 Angular 的 Component 了.
  */
-class Player {
+export class Player {
 
   private player: QMplayer;
   private $player: JQuery<HTMLElement>;
@@ -116,7 +121,6 @@ class Player {
       targets: this.$albumimage[0],
       rotate: 360,
       duration: 12 * 1000,
-      easing: [0, 0, 0, 0],
       autoplay: false,
       loop: true
     });
@@ -155,3 +159,5 @@ class Player {
   }
 
 }
+
+export default Player;
