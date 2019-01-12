@@ -1,4 +1,9 @@
 {
+  "router": {
+    "static": {
+      "path": "../client/dist"
+    }
+  },
   "database": {
     "type": "mysql",
     "host": "app-database",
@@ -9,16 +14,9 @@
     "synchronize": true,
     "logging": true,
     "entities": [
-      "src/entity /**/*.entity.ts"
+      "dist/entity /**/*.entity.js"
     ],
     "migrations": [],
     "subscribers": []
-  },
-  "session": {
-    "name": "session.id",
-    "redis": {
-      "host": "app-redis",
-      "port": 6379
-    }
   }
 }
