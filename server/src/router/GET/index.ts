@@ -1,44 +1,80 @@
 import { Middleware } from 'koa';
 import { RouterPaths } from 'koa-backend-server';
-import { Response } from '../../type';
+import { allowAllCORS, files } from '../config';
+import article from './article';
+import image from './image';
+import motto from './motto';
+import song from './song';
+import Statistic from '../../entity/statistic.entity';
 
-/** This type is only use in this file, do not export it. */
-type RES = Response<{
-  ip: string;
-  query: any;
-}>;
-
-/**
- * The root path of GET method, this is a example.
- * @path /index
- * @param {ParameterizedContext<any, {}>} c Context.
- * @param {Promise<any>} next Call after all done.
- */
+/** GET: index. */
 const index: Middleware = async (c, next) => {
-  /** GET params. */
-  const request = c.request.query;
-  /** Client ip, or remote ip. */
-  const ip = c.request.ip;
-  // Set response.
-  (c.body as RES) = {
-    id: Date.now(),
-    status: true,
-    content: {
-      ip,
-      query: request
+  c.body = {
+    query: c.query,
+    request: c.request,
+    address: {
+      ip: c.request.ip,
+      ips: c.request.ips,
+      host: c.request.host,
+      realip: (c.headers['x-forwarded-for'] || '').split(', ')[0] || c.ip || 'unknown'
+    },
+    times: {
+      today: await Statistic
+        .createQueryBuilder()
+        .where('`when` > :today', { today: new Date(new Date().toLocaleDateString()).getTime() })
+        .getCount(),
+      total: await Statistic.count()
     }
   };
-  // To next middleware.
   await next();
 };
 
-export const GET: RouterPaths = {
+/** GET: 404 not found. */
+const notFound: Middleware = async (c, next) => {
+  await next();
+  if (c.status === 404) {
+    if (files.index) {
+      c.body = files.index;
+      c.status = 200;
+    } else {
+      c.redirect('/');
+    }
+  }
+};
+
+/** All GET paths. */
+export const GETPATH: RouterPaths = {
   'index': {
     path: '/',
     ware: index,
-    cors: undefined, // It is no need to set with GET method.
+    cors: allowAllCORS
+  },
+  'article': {
+    path: '/article',
+    ware: article,
+    cors: allowAllCORS
+  },
+  'image': {
+    path: '/image',
+    ware: image,
+    cors: allowAllCORS
+  },
+  'motto': {
+    path: '/motto',
+    ware: motto,
+    cors: allowAllCORS
+  },
+  'song': {
+    path: '/song',
+    ware: song,
+    cors: allowAllCORS
+  },
+  '404': {
+    path: '**',
+    ware: notFound,
+    cors: allowAllCORS,
     withoutPrefix: true
   }
 };
 
-export default GET;
+export default GETPATH;

@@ -1,14 +1,39 @@
-/** Client request, all properties are optional because you know why. */
-export interface Request<T = string> {
-  [index: string]: any;
+/** 文章. */
+export interface InterfaceArticle {
+  /** 编号. */
+  id: number;
+  /** 标题. */
+  title: string;
+  /** 作者. */
+  author: string;
+  /** 日期, date.getTime(). */
+  date: number;
+  /** 摘要. */
+  summary: string;
+  /** 正文. */
+  text: string;
+  /** HTML 文档. */
+  html: string;
 }
 
-/** Server response. */
-export interface Response<T = string> {
-  /** Package id, use Date.now(). */
+/**
+ * 请求封装包, 主题内容为泛型.
+ */
+export interface Req<T = string> {
   id: number;
-  /** Business status, not http status. */
-  status: boolean;
-  /** Response content. */
+  key: string;
   content: T;
+}
+
+/**
+ * 响应封装包, 主体内容类型为泛型.
+ */
+export interface Resp<T = string> {
+  id: number;
+  status: boolean;
+  content: T;
+}
+
+export interface LocalConfig {
+  static?: string;
 }
