@@ -1,24 +1,30 @@
 {
   "name": "app-server",
   "version": "0.0.0",
+  "description": "2018 - 2019 年 Web 设计实训, server 端.",
   "private": true,
-  "description": "The server end of this app.",
   "main": "dist/index.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
-    "build": "tsc",
-    "dist": "node dist",
-    "start": "ts-node src",
-    "test": "ts-node test",
-    "watch": "tsc -w"
+    "test": "ts-node test"
   },
   "keywords": [
+    "typescript",
+    "koa",
+    "backend",
     "server",
-    "nodejs",
-    "typescript"
+    "restful"
   ],
   "author": "Devin Don <DevinDon@Foxmail.com>",
   "license": "MIT",
   "dependencies": {
+    "jsdom": "^13.1.0",
     "koa-backend-server": "^0.5.0"
+  },
+  "devDependencies": {
+    "@types/jsdom": "^12.2.1",
+    "typescript": "^3.2.2"
   }
 }

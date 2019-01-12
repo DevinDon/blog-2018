@@ -1,11 +1,27 @@
-import { Server } from 'koa-backend-server';
-import PATH from './router';
+import { KBSConfig, Server } from 'koa-backend-server';
+import { paths } from './router';
+import { statistic } from './ware';
+import { localConfig } from './router/config';
 
-const server = new Server({
+const config: KBSConfig = {
+  address: {
+    portocol: 'HTTP'
+  },
+  database: {
+    ormconfig: true
+  },
   router: {
-    paths: PATH,
+    paths,
+    static: {
+      path: localConfig.static || ''
+    },
     version: 'v1'
   }
-});
+};
 
-server.listen();
+const server: Server[] = [];
+
+for (let i = 0; i < 2; i++) {
+  server.push(new Server(config).use(statistic));
+  server[i].listen('0.0.0.0', 8080 + i);
+}

@@ -1,37 +1,73 @@
 import { Middleware } from 'koa';
 import { RouterPaths } from 'koa-backend-server';
-import { Response } from '../../type';
-import { allowAllCORS } from '../config';
+import { Resp } from '../../type';
+import { allowAllCORS, getOffset } from '../config';
+import articles from './articles';
+import images from './images';
+import mottos from './mottos';
+import songs from './songs';
+import signin from './sign/in';
 
-interface REQ {
-  name: string;
-  email: string;
-}
-
-type RES = Response<any>;
-
+/** POST: Cow say hello. */
 const index: Middleware = async (c, next) => {
-  /** POST request data, do not trust client. */
-  const request: REQ = {
-    name: c.request.body.name || '',
-    email: c.request.body.email || ''
-  };
-  (c.body as RES) = {
+  (c.body as Resp<any>) = {
     id: Date.now(),
-    status: Boolean(request.name && request.email),
-    content: request
+    status: true,
+    content: {
+      test10_5: getOffset(10, 5),
+      test10_10: getOffset(10, 10),
+      cowsay: `
+ ________
+< Hello! >
+ --------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+    `
+    }
   };
   await next();
 };
 
-/** All POST router. */
-export const POST: RouterPaths = {
-  'index': {
-    path: '/',
-    ware: index,
-    cors: allowAllCORS,
-    withoutPrefix: false // default to false
+const notFound: Middleware = async (c, next) => {
+  await next();
+  if (c.status === 404) {
+    (c.body as Resp) = {
+      id: Date.now(),
+      status: false,
+      content: '404 Not Found'
+    };
   }
 };
 
-export default POST;
+export const POSTPATHS: RouterPaths = {
+  'index': {
+    path: '/',
+    ware: index,
+    cors: allowAllCORS
+  }, 'articles': {
+    path: '/articles',
+    ware: articles,
+    cors: allowAllCORS
+  }, 'images': {
+    path: '/images',
+    ware: images,
+    cors: allowAllCORS
+  }, 'mottos': {
+    path: '/mottos',
+    ware: mottos,
+    cors: allowAllCORS
+  }, 'songs': {
+    path: '/songs',
+    ware: songs,
+    cors: allowAllCORS
+  }, 'sign in': {
+    path: '/sign/in',
+    ware: signin,
+    cors: allowAllCORS
+  }
+};
+
+export default POSTPATHS;
