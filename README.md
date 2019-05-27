@@ -6,7 +6,7 @@
 
 # 访问在线样例 **(推荐)**
 
-在线样例: [https://demo.don.red/blog](https://demo.don.red/blog)
+在线样例: <https://devindon.github.io/blog-2018>
 
 ---
 
