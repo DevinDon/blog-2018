@@ -1,4 +1,10 @@
-*build
-*dist
-*node_modules
-*package-lock.json
+/node_modules
+/dist
+/coverage
+/package-lock.json
+/out
+/temp
+/logs
+/yarn.lock
+/*.db
+/*.log

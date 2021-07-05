@@ -1,48 +1,45 @@
 {
-  "name": "app",
+  "name": "app-client",
   "version": "0.0.0",
-  "description": "APP package.",
+  "description": "2018 - 2019 年 Web 设计实训, web 端项目.",
   "private": true,
-  "main": "index.js",
-  "directories": {
-    "doc": "docs"
-  },
   "scripts": {
-    "build": "gulp build",
-    "start": "gulp",
-    "install": "cd client && npm i && cd ../server && npm i",
-    "pack": "gulp build && gulp pack",
-    "watch": "gulp watch"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DevinDon/app-template.git"
+    "build": "npm run build:prod",
+    "build:dev": "MODE=DEV ./scripts/build",
+    "build:prod": "./scripts/build",
+    "clean": "./scripts/clean",
+    "start": "serve -n -s -p 8080 dist/",
+    "watch": "./scripts/watch"
   },
   "keywords": [
-    "server",
     "client",
-    "typescript",
-    "docker"
+    "web",
+    "typescript"
   ],
   "author": "Devin Don <DevinDon@Foxmail.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/DevinDon/app-template/issues"
+  "dependencies": {
+    "animejs": "^2.2.0",
+    "axios": "^0.18.1",
+    "jquery": "^3.5.0"
   },
-  "homepage": "https://github.com/DevinDon/app-template#readme",
   "devDependencies": {
-    "browserify": "^17.0.0",
-    "gulp": "^4.0.0",
-    "gulp-clean": "^0.4.0",
-    "gulp-clean-css": "^4.0.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-less": "^4.0.1",
-    "gulp-sourcemaps": "^2.6.4",
-    "gulp-typescript": "^5.0.0",
-    "gulp-uglify-es": "^2.0.0",
-    "tsify": "^5.0.2",
-    "typescript": "^4.0.3",
-    "vinyl-buffer": "^1.0.1",
-    "vinyl-source-stream": "^2.0.0"
+    "@types/animejs": "^2.0.2",
+    "@types/jasmine": "3.6.10",
+    "@types/jquery": "^3.3.29",
+    "@types/less": "^3.0.2",
+    "@types/node": "15.0.0",
+    "@typescript-eslint/eslint-plugin": "4.22.0",
+    "@typescript-eslint/parser": "4.22.0",
+    "cross-env": "7.0.3",
+    "esbuild": "0.11.15",
+    "eslint": "7.25.0",
+    "jasmine": "3.7.0",
+    "jasmine-console-reporter": "3.1.0",
+    "less": "^4.1.1",
+    "serve": "^12.0.0",
+    "ts-loader": "9.1.1",
+    "ts-node": "9.1.1",
+    "typescript": "4.2.4"
   }
 }

@@ -1,0 +1,34 @@
+#!/usr/bin/env node
+/* eslint-disable no-console */
+
+const { execSync, exec } = require('child_process');
+const { watch } = require('fs');
+
+let handler = null;
+
+const debounce = (fn, timeout = 300) => {
+  if (handler) {
+    clearTimeout(handler);
+  }
+  handler = setTimeout(fn, timeout);
+};
+
+const rebuild = () => {
+  console.log('Rebuilding project...');
+  execSync('npm run build:dev');
+  console.log('Project updated.');
+};
+
+const update = (event, filename) => {
+  console.log(`File ${event}: ${filename}`);
+  debounce(rebuild);
+};
+
+watch('src', update);
+watch('src/assets', update);
+watch('src/scripts', update);
+watch('src/styles', update);
+
+rebuild();
+console.log('Access localhost:8080 to preview.');
+exec('npm start');

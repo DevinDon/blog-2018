@@ -1,59 +1,17 @@
-# Blog
+# TypeScript Template
 
-2018 - 2019 年 Web 课程设计, 前后端代码.
+TypeScript Template.
 
----
+# [THE MIT LICENSE](https://raw.githubusercontent.com/DevinDon/license/master/THE%20MIT%20LICENSE)
 
-# 访问在线样例 **(推荐)**
+Copyright © 2018+ Devin Don
 
-在线样例: <https://devindon.github.io/blog-2018>
+LICENSE: MIT
 
----
+Click <https://raw.githubusercontent.com/DevinDon/license/master/THE%20MIT%20LICENSE> to view a copy of this license.
 
-# 使用 Docker 启动服务器
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-1. 安装 Docker
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-[Docker for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
-
-[Docker for MAC](https://hub.docker.com/editions/community/docker-ce-desktop-mac)
-
-[Docker for Linux](https://docs.docker.com/install/)
-
-2. 启动服务器
-
-***Warning:** Docker for Windows 存在已知的 Volumn 数据卷路径问题. 如果需要在 Windows 中运行, 请自行将 docker-compose.yml 文件中的挂载路径替换为绝对路径.*
-
-```bash
-cd dist
-docker-compose up --build
-```
-
-3. 访问网站
-
-在浏览器中打开 [http://localhost](http://localhost) 即可访问.
-
----
-
-# 使用 NodeJS 启动服务器
-
-1. 安装 NodeJS
-
-前往 [NodeJS(CN)](http://nodejs.cn/download/) 选择适合当前系统的版本.
-
-2. 安装依赖包
-
-```bash
-cd dist
-npm i
-```
-
-3. 启动服务器
-
-```bash
-npm start
-```
-
-4. 访问网站
-
-在浏览器中打开 [http://localhost:8080](http://localhost:8080) 即可访问.
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -e
+
+# build with tsc
+# tsc --module es2020 --outDir out/
+
+if [ "${MODE}" = "DEV" ]; then
+  esbuild \
+  src/scripts/index.ts \
+  --bundle \
+  --platform=browser \
+  --target=chrome80 \
+  --outfile=dist/bundle.js \
+  --sourcemap=inline
+else
+  esbuild \
+  src/scripts/index.ts \
+  --bundle \
+  --platform=browser \
+  --target=chrome80 \
+  --outfile=dist/bundle.js \
+  --minify
+fi
+
+node ./scripts/build-less.js
+echo "build less files"
+cp src/index.html dist/index.html
+cp -r src/assets dist/assets
+
+rm -rf out/
+echo "all done"
