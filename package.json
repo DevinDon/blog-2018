@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@types/animejs": "^2.0.2",
-    "@types/jasmine": "3.6.10",
+    "@types/jasmine": "3.7.7",
     "@types/jquery": "^3.3.29",
     "@types/less": "^3.0.2",
     "@types/node": "15.0.0",
