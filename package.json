@@ -28,7 +28,7 @@
     "@types/jasmine": "3.6.10",
     "@types/jquery": "^3.3.29",
     "@types/less": "^3.0.2",
-    "@types/node": "15.0.0",
+    "@types/node": "16.0.0",
     "@typescript-eslint/eslint-plugin": "4.22.0",
     "@typescript-eslint/parser": "4.22.0",
     "cross-env": "7.0.3",
