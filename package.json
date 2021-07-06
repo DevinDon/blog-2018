@@ -19,7 +19,7 @@
   "author": "Devin Don <DevinDon@Foxmail.com>",
   "license": "MIT",
   "dependencies": {
-    "animejs": "^2.2.0",
+    "animejs": "^3.2.1",
     "axios": "^0.21.1",
     "jquery": "^3.5.0"
   },
